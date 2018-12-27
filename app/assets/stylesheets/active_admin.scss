@@ -1,0 +1,457 @@
+// SASS variable overrides must be declared before loading up Active Admin's styles.
+//
+// To view the variables that Active Admin provides, take a look at
+// `app/assets/stylesheets/active_admin/mixins/_variables.scss` in the
+// Active Admin source.
+//
+// For example, to change the sidebar width:
+// $sidebar-width: 242px;
+
+// Active Admin's got SASS!
+$buda-blue: #4F90FF;
+$am-theme-primary: $buda-blue;
+@import 'active_admin/mixins';
+@import 'active_material';
+@import 'flag-icon';
+@import 'font-awesome';
+
+$status_tag_red: #f44336;
+$status_tag_yellow: #cc9738;
+$status_tag_green: #4caf50;
+$status_tag_brown: #ae5656;
+$status_tag_gray: #868686;
+$status_tag_light_gray: #8daa92;
+$status_tag_light_blue: #39f;
+$status_tag_purple: #9c27b0;
+$status_tag_dark_gray: #4d4d4d;
+$status_tag_dark_green: #004d00;
+$status_tag_orange: #d85220;
+$status_tag_blue: #185692;
+
+$nice-gray: #aaaaaa;
+$nice-light-gray: #e6e6e6;
+$full-red: #ff0000;
+$darker-red: #c20000;
+$almost-black: rgba(0, 0, 0, 0.7);
+$light-red: #ffe6e6;
+$tx-match-color: $status_tag_green;
+$in-process-job-green: #00e600;
+$failed-job-red: $full-red;
+
+$admin-container-padding: 8px;
+$admin-padding: 8px;
+$admin-font-size: 12px;
+
+ul {
+  padding-inline-start: 25px;
+}
+
+.site_title {
+  padding-left: 35px;
+  background: $buda-blue image-url("buda-logo-white-small.png") no-repeat 7px/21px;
+}
+
+.admin_dashboard {
+  .home-dashboard-title {
+    padding: 20px 0 0 20px;
+    font-size: 19px;
+    font-weight: bold;
+  }
+
+  .dashboard-panel {
+    margin: 30px auto;
+    white-space: nowrap;
+
+    h3 {
+      font-size: 14px;
+      font-weight: bold;
+      color: $almost-black;
+    }
+
+    &.job-status-panel {
+      max-width: 1200px;
+    }
+
+    &.reserve-accounts-status-panel {
+      max-width: 1000px;
+
+      .status_tag.no {
+        background-color: $full-red;
+      }
+    }
+
+    .job-in-process {
+      color: $in-process-job-green;
+    }
+
+    .job-failed {
+      color: $failed-job-red;
+    }
+  }
+}
+
+.status_tag {
+  background: $status_tag_gray;
+  font-size: 11px;
+
+  &.pending, &.no_inicializado {
+    background: $status_tag_gray;
+  }
+
+  &.ready, &.activo {
+    background: $status_tag_green;
+  }
+
+  &.pending_confirmation { background-color: $status_tag_yellow }
+  &.pending_op_execution { background-color: $status_tag_yellow }
+  &.rejected { background-color: $status_tag_brown }
+  &.confirmed { background-color: $status_tag_light_gray }
+
+  &.created { background-color: $status_tag_light_blue }
+  &.processing { background-color: $status_tag_gray }
+  &.processed { background-color: $status_tag_yellow }
+  &.legalizing { background-color: $status_tag_orange }
+
+  &.legalized,
+  &.completed { background-color: $status_tag_green }
+  &.completed_with_errors { background-color: $status_tag_purple }
+  &.discarded { background-color: $status_tag_dark_gray }
+
+  &.crashed,
+  &.failed { background-color: $status_tag_red }
+  &.confirming { background-color: $status_tag_dark_green }
+
+  &.accepted { background-color: $status_tag_blue }
+  &.with_error { background-color: $status_tag_orange }
+}
+
+.danger {
+  color: $full-red;
+
+  &:hover {
+    color: $darker-red;
+  }
+}
+
+.ignore_reason {
+  &_label {
+    float: left;
+    margin-top: 17px;
+  }
+
+  &_text_area {
+    width: 80%;
+    margin: 20px;
+  }
+}
+
+.circle-tag {
+  width: 1em;
+  height: 1em;
+  display: inline-block;
+  border-radius: 100%;
+  box-sizing: border-box;
+
+  &--cop {
+    background: #FDE74C;
+  }
+
+  &--usd {
+    background: #DC8A30;
+  }
+
+  &--btc {
+    background: #F45B7C;
+  }
+
+  &--clp {
+    background: #457B9D;
+  }
+
+  &--eth {
+    background: #3EBE33;
+  }
+
+  &--pen {
+    background: #fff;
+    border: 1px solid #F45B7C;
+  }
+}
+
+.deposit-data {
+  display: inline-block;
+
+  .deposit-upload-panel {
+    width: 33%;
+    float: right;
+    text-align: center;
+    margin-top: 0;
+    padding-bottom: 30px;
+  }
+
+  .deposit-data-main-panel {
+    width: 65%;
+    float: left;
+
+    .panel_contents {
+      margin-top: -28px;
+    }
+
+    .deposit-data-section {
+      height: 30px;
+      display: inline-block;
+      margin: 10px;
+      padding: 10px;
+    }
+
+    .circle-tag {
+      display: inline-block;
+    }
+
+    .flag-icon {
+      width: 25px;
+      height: 17px;
+      border: 1px solid $nice-gray;
+      background-size: cover;
+    }
+
+    span {
+      margin-right: 15px;
+      font-size: 15px;
+
+      &.important-field {
+        font-weight: bold;
+        font-size: 16px;
+      }
+      &.very-important-field {
+        font-weight: bold;
+        font-size: 20px;
+        vertical-align: middle;
+      }
+    }
+  }
+}
+
+.matched-field {
+  color: $tx-match-color;
+  font-weight: bold;
+}
+
+.admin_paysheets.new .withdrawal-warning {
+  background-color: $light-red;
+}
+
+.dropdown_menu.paysheet-withdrawals-actions {
+  display: inline-block;
+  margin-bottom: 20px;
+}
+
+.show.admin_banco_itau_paysheet_entries .panel {
+  max-width: 600px;
+  width: 48%;
+  float: left;
+  margin-right: 20px;
+
+  &.other-entries {
+    max-width: 1220px;
+    width: 100%;
+  }
+}
+
+.paysheet-action-buttons {
+  display: inline-block;
+  margin: 20px 0;
+  width: 700px;
+
+  .process-paysheet-button {
+    float: left;
+  }
+
+  .confirm-paysheet-button {
+    float: left;
+    background-color: $status_tag_green;
+  }
+
+  .discard-paysheet-button {
+    float: left;
+    background-color: #4d4d4d;
+  }
+
+  .manage-matches-link {
+    line-height: 44px;
+    margin: 20px;
+  }
+}
+
+.title_bar h2 {
+  font-size: 18px;
+}
+
+#titlebar_right .action_item a {
+  line-height: 14px;
+  padding: $admin-padding;
+}
+
+#active_admin_content {
+  padding: $admin-container-padding;
+}
+
+#sidebar {
+  margin-left: $admin-container-padding;
+}
+
+.index_table tr,
+.panel_contents table tr {
+  height: 36px;
+}
+
+.index_table td,
+.index_table th,
+.panel_contents table td,
+.panel_contents table th {
+  font-size: $admin-font-size;
+  padding: 4px 8px;
+}
+
+.index_table th,
+.panel_contents table th {
+  height: 36px;
+}
+
+#index_table_paysheets {
+  td {
+    white-space: nowrap;
+  }
+}
+
+.table_tools {
+  padding: $admin-padding;
+
+  .scopes .table_tools_segmented_control {
+    margin-block-start: .5em;
+    margin-block-end: .5em;
+
+    .scope {
+      font-size: $admin-font-size;
+    }
+  }
+}
+
+input[type="submit"],
+input[type="reset"],
+input[type="button"],
+fieldset.actions .cancel a,
+.buttons .cancel a,
+.clear_filters_btn {
+  font-size: $admin-font-size;
+  line-height: 12px;
+}
+
+.select select:not([multiple]),
+.polymorphic_select select:not([multiple]),
+.filter_form_field > select:not([multiple]),
+.select_and_search > select:not([multiple]),
+.filter_date_range > select:not([multiple]) {
+  font-size: $admin-font-size;
+  height: 32px;
+  line-height: 30px;
+}
+
+.input {
+  padding: 4px 8px;
+  margin: 8px;
+}
+
+.input.string input,
+.input.stringish input,
+.input.numeric input {
+  font-size: $admin-font-size;
+  line-height: 14px;
+}
+
+.input > label,
+.input .label > label {
+  font-size: $admin-font-size;
+  line-height: 14px;
+}
+
+.panel > h3,
+.has_many_container > h3,
+body.index #main_content > h3,
+body.edit #main_content > form > h3,
+body.new #main_content > form > h3,
+body.create #main_content > form > h3,
+body.update #main_content > form > h3 {
+  padding: 12px;
+}
+
+.sidebar_section .panel_contents {
+  h4,
+  li {
+    font-size: $admin-font-size;
+  }
+}
+
+.col-id,
+.col-withdrawal,
+.col-dni {
+  white-space: nowrap;
+}
+
+fieldset.actions,
+.buttons {
+  padding: $admin-padding;
+}
+
+#index_footer .pagination_information b {
+  font-size: $admin-font-size;
+}
+
+.paginated_collection .pagination_information,
+.paginated_collection .download_links {
+  padding: $admin-padding;
+}
+
+.footer {
+  font-size: $admin-font-size;
+}
+
+.am-js .index_table td.col-actions,
+.am-js .panel_contents table td.col-actions {
+  width: 32px;
+}
+
+.am-js .index_table td.col-actions .table_actions,
+.am-js .panel_contents table td.col-actions .table_actions {
+  min-width: 90px;
+}
+
+@media screen and (min-width: 1300px) {
+  .am-js .index_table td.col-actions .table_actions a,
+  .am-js .panel_contents table td.col-actions .table_actions a {
+    font-size: $admin-font-size;
+    line-height: 16px;
+  }
+}
+
+.admin_deposits,
+.admin_withdrawals {
+  #estado-de-la-busqueda-_sidebar_section {
+    display: none;
+  }
+}
+
+.admin_balance_snapshots {
+  .col-healthy .no {
+    background-color: $full-red;
+  }
+
+  .col-expected_balance, .col-local_balance, .col-origin_balance {
+    font-weight: bold;
+    background-color: $nice-light-gray;
+  }
+
+  .col-expected_balance {
+    border-left: 6px groove $buda-blue;
+  }
+}
