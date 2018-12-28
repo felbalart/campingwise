@@ -1,2 +1,93 @@
 es-CL:
-  hello: "Hola mundo"
+  date:
+    formats:
+      long: "%A %d/%m/%Y"
+  time:
+    formats:
+      long: "%A %d/%m/%Y - %H:%M"
+  activerecord:
+    models:
+      guest:
+        one: Huésped
+        other: Huéspedes
+      site:
+        one: Instalación
+        other: Instalaciones
+      order:
+        one: Orden
+        other: Ordenes
+      reserve:
+        one: Reserva
+        other: Reservas
+      payment:
+        one: Pago
+        other: Pagos
+      invoice:
+        one: Boleta
+        other: Boletas
+      base_fee:
+        one: Tarifa Base
+        other: Tarifas Base
+      admin_user:
+        one: Usuario Admin
+        other: Usuarios Admin
+    attributes:
+      shared: &shared
+        created_at: fecha creación
+        updated_at: fecha actualización
+      guest:
+        <<: *shared
+        email: email
+        first_name: nombres
+        last_name: apellidos
+        phone: fono
+      site:
+        <<: *shared
+        category: tipo
+        name: nombre
+      order:
+        <<: *shared
+        guest_id: huésped
+        guest: huésped
+        tag: tag
+      reserve:
+        <<: *shared
+        order_id: orden
+        order: orden
+        site_id: instalación
+        site: instalación
+        start_date: fecha desde
+        end_date: fecha hasta
+        status: estado
+      payment:
+        <<: *shared
+        order_id: orden
+        order: orden
+        amount: monto
+        payed_at: fecha pago
+        payment_method: medio de pago
+      invoice:
+        <<: *shared
+        order_id: orden
+        order: orden
+        category: tipo
+        number: número
+        amount: monto
+      base_fee:
+        <<: *shared
+        fee_name: nombre
+        amount: monto
+      admin_user:
+        <<: *shared
+        email: email
+        password:
+  enumerize:
+    admin_user:
+      role:
+        sysadmin: SysAdmin
+        admin: Admin
+    site:
+      category:
+        cabin: cabaña
+        camp_site: sitio
+

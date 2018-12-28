@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_12_28_002215) do
+ActiveRecord::Schema.define(version: 2018_12_28_005859) do
 
   create_table "admin_users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -24,4 +24,72 @@ ActiveRecord::Schema.define(version: 2018_12_28_002215) do
     t.index ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true
   end
 
+  create_table "base_fees", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "fee_name"
+    t.decimal "amount", precision: 10
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "guests", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "email"
+    t.string "first_name"
+    t.string "last_name"
+    t.string "phone"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "invoices", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "order_id"
+    t.string "category"
+    t.string "number"
+    t.decimal "amount", precision: 10
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["order_id"], name: "index_invoices_on_order_id"
+  end
+
+  create_table "orders", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "guest_id"
+    t.string "tag"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["guest_id"], name: "index_orders_on_guest_id"
+  end
+
+  create_table "payments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "order_id"
+    t.decimal "amount", precision: 10
+    t.date "payed_at"
+    t.string "payment_method"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["order_id"], name: "index_payments_on_order_id"
+  end
+
+  create_table "reserves", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "order_id"
+    t.bigint "site_id"
+    t.date "start_date"
+    t.date "end_date"
+    t.string "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["order_id"], name: "index_reserves_on_order_id"
+    t.index ["site_id"], name: "index_reserves_on_site_id"
+  end
+
+  create_table "sites", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "category"
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_foreign_key "invoices", "orders"
+  add_foreign_key "orders", "guests"
+  add_foreign_key "payments", "orders"
+  add_foreign_key "reserves", "orders"
+  add_foreign_key "reserves", "sites"
 end
