@@ -1,3 +1,3 @@
 ActiveAdmin.register BaseFee do
-  permit_params controller.resource_class.new.attributes.symbolize_keys.keys
+  permit_params :fee_name, :amount
 end

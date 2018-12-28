@@ -1,3 +1,3 @@
 ActiveAdmin.register Invoice do
-  permit_params controller.resource_class.new.attributes.symbolize_keys.keys
+  permit_params :order_id, :category, :number, :amount
 end

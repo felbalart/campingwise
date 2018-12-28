@@ -1,3 +1,3 @@
 ActiveAdmin.register Guest do
-  permit_params controller.resource_class.new.attributes.symbolize_keys.keys
+  permit_params :email, :first_name, :last_name, :phone
 end
