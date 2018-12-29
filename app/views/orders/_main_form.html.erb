@@ -1,11 +1,11 @@
 <div class="main-form">
   <%= semantic_form_for resource, url: orders_path do |f| %>
       <%= f.inputs name: 'Huésped' do %>
-          <%= f.input :guest_id, as: :search_select, label: 'Nombre', url: guests_path, fields: [:name, :email], display_name: :display_name, minimum_input_length: 2, class: 'base-field-input' %>
+          <%= f.input :guest_id, as: :search_select, label: Guest.human_attribute_name(:name), url: guests_path, fields: [:name, :email], display_name: :display_name, minimum_input_length: 2, class: 'base-field-input' %>
           <%= f.semantic_fields_for :guest do |gf| %>
               <%= gf.input :name, :wrapper_html => { :style => 'display:none;' }  %>
-              <%= gf.input :email %>
-              <%= gf.input :phone, label: 'Fono' %>
+              <%= gf.input :email, label: Guest.human_attribute_name(:email) %>
+              <%= gf.input :phone, label: Guest.human_attribute_name(:phone) %>
           <% end %>
       <% end %>
 
@@ -13,14 +13,16 @@
         <%= f.input :tag, label: 'Tag' %>
       <% end %>
 
-      <%= f.inputs name: 'Reserva' do %>
-          <%= f.semantic_fields_for :reserve do |rf| %>
-            <%= rf.input :site_id, label: 'Instalación', as: :select, collection: Site.all, member_label: :full_name %>
-            <%= rf.input :start_date, label: 'Fecha Desde', as: :string, input_html: { class: 'datepicker', value: Date.today.strftime('%d/%m/%Y') } %>
-            <%= rf.input :end_date, label: 'Fecha Desde', as: :string, input_html: { class: 'datepicker', value: Date.tomorrow.strftime('%d/%m/%Y') } %>
+      <div class="hidden-reserve-form-mold" style="display: none;">
+        <%= render partial: 'reserve_sub_form', locals: { f: f }%>
+      </div>
 
-<% end %>
-      <% end %>
+      <div class="visible-reserve-forms-container">
+        <%= render partial: 'reserve_sub_form', locals: { f: f }%>
+      </div>
+
+      <button type="button" id="add-reserve-button" onclick="addReserveForm();">+ Reserva</button>
+
       <%=f.submit%>
   <%end%>
 </div>

@@ -62,8 +62,8 @@ es-CL:
         adults_qty: Nº Adultos
         kids_qty: Nº Niños
         fix_total_price: Fijar Precio Total
-        adult_price: Precio Adulto
-        kid_price: Precio Niño
+        adult_price: Precio p/Adulto
+        kid_price: Precio p/Niño
         total_price: Precio Total
       payment:
         <<: *shared
