@@ -60,6 +60,12 @@ es-CL:
         start_date: fecha desde
         end_date: fecha hasta
         status: estado
+        adults_qty: Nº Adultos
+        kids_qty: Nº Niños
+        fix_total_price: Fijar Precio Total
+        adult_price: Precio Adulto
+        kid_price: Precio Niño
+        total_price: Precio Total
       payment:
         <<: *shared
         order_id: orden
