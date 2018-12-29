@@ -1,15 +1,26 @@
 <div class="main-form">
   <%= semantic_form_for resource, url: orders_path do |f| %>
-      <div class="basic-fields fields-box">
-        <%= f.inputs name: 'Huésped' do %>
-            <%= f.input :guest_id, as: :search_select, url: guests_path, fields: [:name, :email], display_name: :display_name, minimum_input_length: 2, class: 'base-field-input' %>
-            <%= f.semantic_fields_for :guest do |gf| %>
-                <%= gf.input :name %>
-                <%= gf.input :email %>
-                <%= gf.input :phone %>
-            <% end %>
-        <% end %>
-      </div>
+      <%= f.inputs name: 'Huésped' do %>
+          <%= f.input :guest_id, as: :search_select, label: 'Nombre', url: guests_path, fields: [:name, :email], display_name: :display_name, minimum_input_length: 2, class: 'base-field-input' %>
+          <%= f.semantic_fields_for :guest do |gf| %>
+              <%= gf.input :name, :wrapper_html => { :style => 'display:none;' }  %>
+              <%= gf.input :email %>
+              <%= gf.input :phone, label: 'Fono' %>
+          <% end %>
+      <% end %>
+
+      <%= f.inputs name: 'Orden' do %>
+        <%= f.input :tag, label: 'Tag' %>
+      <% end %>
+
+      <%= f.inputs name: 'Reserva' do %>
+          <%= f.semantic_fields_for :reserve do |rf| %>
+            <%= rf.input :site_id, label: 'Instalación', as: :select, collection: Site.all, member_label: :full_name %>
+            <%= rf.input :start_date, label: 'Fecha Desde', as: :string, input_html: { class: 'datepicker', value: Date.today.strftime('%d/%m/%Y') } %>
+            <%= rf.input :end_date, label: 'Fecha Desde', as: :string, input_html: { class: 'datepicker', value: Date.tomorrow.strftime('%d/%m/%Y') } %>
+
+<% end %>
+      <% end %>
       <%=f.submit%>
   <%end%>
 </div>

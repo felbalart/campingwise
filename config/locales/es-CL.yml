@@ -1,6 +1,7 @@
 es-CL:
   date:
     formats:
+      default: "%A %d/%m/%Y"
       long: "%A %d/%m/%Y"
   time:
     formats:

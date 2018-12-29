@@ -24,6 +24,13 @@ $skinLogo: 0;
 //
 //   .status_tag { background: #6090DB; }
 
-.existing-guest span {
-  background-color: #b3b3b3;
+.main-form {
+  .existing-guest span {
+    background-color: #b3b3b3;
+  }
+
+  .datepicker {
+    width: 130px;
+  }
+
 }

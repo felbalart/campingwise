@@ -1,7 +1,12 @@
 class Site < ApplicationRecord
   extend Enumerize
   enumerize :category, in: [:cabin, :camp_site]
+
+  def full_name
+    "#{category_text} - #{name}"
+  end
 end
+
 
 # == Schema Information
 #

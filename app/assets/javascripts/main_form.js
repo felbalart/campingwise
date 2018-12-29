@@ -19,5 +19,9 @@ $(function () {
     var selectedGuestId = $("#order_guest_id_input select").val();
     updateGuestData(selectedGuestId);
   });
+
+  $('.datepicker').datepicker({
+      dateFormat: 'dd/mm/yy'
+  });
 });
 
