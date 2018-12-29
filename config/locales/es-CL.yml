@@ -34,32 +34,31 @@ es-CL:
         other: Usuarios Admin
     attributes:
       shared: &shared
-        created_at: fecha creación
-        updated_at: fecha actualización
+        created_at: Fecha Creación
+        updated_at: Fecha Actualización
       guest:
         <<: *shared
-        email: email
-        first_name: nombres
-        last_name: apellidos
-        phone: fono
+        email: Email
+        name: Nombre
+        phone: Fono
       site:
         <<: *shared
-        category: tipo
-        name: nombre
+        category: Tipo
+        name: Nombre
       order:
         <<: *shared
-        guest_id: huésped
-        guest: huésped
-        tag: tag
+        guest_id: Huésped
+        guest: Huésped
+        tag: Tag
       reserve:
         <<: *shared
-        order_id: orden
-        order: orden
-        site_id: instalación
-        site: instalación
-        start_date: fecha desde
-        end_date: fecha hasta
-        status: estado
+        order_id: Orden
+        order: Orden
+        site_id: Instalación
+        site: Instalación
+        start_date: Fecha Desde
+        end_date: Fecha Hasta
+        status: Estado
         adults_qty: Nº Adultos
         kids_qty: Nº Niños
         fix_total_price: Fijar Precio Total
@@ -68,26 +67,26 @@ es-CL:
         total_price: Precio Total
       payment:
         <<: *shared
-        order_id: orden
-        order: orden
-        amount: monto
-        payed_at: fecha pago
-        payment_method: medio de pago
+        order_id: Orden
+        order: Orden
+        amount: Monto
+        payed_at: Fecha Pago
+        payment_method: Medio de Pago
       invoice:
         <<: *shared
-        order_id: orden
-        order: orden
-        category: tipo
-        number: número
-        amount: monto
+        order_id: Orden
+        order: Orden
+        category: Tipo
+        number: Número
+        amount: Monto
       base_fee:
         <<: *shared
-        fee_name: nombre
-        amount: monto
+        fee_name: Nombre
+        amount: Monto
       admin_user:
         <<: *shared
-        email: email
-        password:
+        email: Email
+        password: Password
   enumerize:
     admin_user:
       role:
@@ -95,6 +94,6 @@ es-CL:
         admin: Admin
     site:
       category:
-        cabin: cabaña
-        camp_site: sitio
+        cabin: Cabaña
+        camp_site: Sitio
 
