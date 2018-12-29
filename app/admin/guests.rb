@@ -6,7 +6,7 @@ ActiveAdmin.register Guest do
       index! do |format|
         format.json do
           q = params[:q][:groupings]['0'][:name_contains]
-          dummy = Guest.new(id: -1, name: q, email: 'nuevo')
+          dummy = Guest.new(id: -rand(1000000000), name: q, email: 'nuevo')
           render json: ([dummy] + collection).as_json(methods: :display_name)
         end
       end
