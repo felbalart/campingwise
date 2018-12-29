@@ -1,0 +1,9 @@
+<div class="main-form">
+  <%= semantic_form_for resource, url: orders_path do |f| %>
+      <div class="basic-fields fields-box">
+        <%= f.inputs name: 'Huésped' do %>
+            <%= f.input :guest_id, as: :search_select, url: guests_path, fields: [:name, :email], display_name: :display_name, minimum_input_length: 2, class: 'base-field-input' %>
+        <% end %>
+      </div>
+  <%end%>
+</div>
