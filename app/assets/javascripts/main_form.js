@@ -16,6 +16,7 @@ function updateGuestData(guestId) {
 }
 
 function addReserveForm() {
+  if($('.hidden-reserve-form-mold').length === 0) { return; }
   if(typeof(window.reserveCount) === 'undefined') { window.reserveCount = 0; }
   window.reserveCount += 1;
   var newFormIndex = window.reserveCount;

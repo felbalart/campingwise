@@ -46,3 +46,10 @@ $skinLogo: 0;
     max-width: 125px;
   }
 }
+
+#calendar-view {
+
+  #calendar-month-selector + span.select2 {
+    width: 200px !important;
+  }
+}

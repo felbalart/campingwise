@@ -5,6 +5,7 @@
         <%= rf.input :end_date, label: Reserve.human_attribute_name(:end_date), as: :string, input_html: { class: 'datepicker', value: Date.tomorrow.strftime('%d/%m/%Y') } %>
         <%= rf.input :adults_qty, label: Reserve.human_attribute_name(:adults_qty), as: :number %>
         <%= rf.input :kids_qty, label: Reserve.human_attribute_name(:kids_qty), as: :number %>
+        <!--TODO: disable adult/kid prices when fix_total_price gets set to true, and vieversa-->
         <%= rf.input :fix_total_price, label: Reserve.human_attribute_name(:fix_total_price), as: :boolean%>
         <%= rf.input :adult_price, label: Reserve.human_attribute_name(:adult_price), as: :number %>
         <%= rf.input :kid_price, label: Reserve.human_attribute_name(:kid_price), as: :number %>
