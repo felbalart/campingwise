@@ -14,7 +14,6 @@ class CreateOrder < PowerTypes::Command.new(:op)
     errors_hash = reserves_hash.map { |k, res| ["Reserva #{k}", error_messages(res)] }.to_h
     errors_hash.merge!('Huésped' => error_messages(guest), 'Orden' => error_messages(order))
     errors_hash.compact!
-    binding.pry
     if errors_hash.any?
       errors_str = errors_hash.map { |k, v| "#{k}: #{v}"}.join(';').delete('[]"')
       return "Error: #{errors_str}"
