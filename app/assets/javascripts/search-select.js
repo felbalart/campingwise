@@ -56,7 +56,7 @@ var initializer = function() {
             var gi;
             for (gi = 0; gi < data.length; gi++) {
               guest = data[gi];
-              if(typeof(guest.id) === 'number' && guest.id > 0) {
+              if(typeof(guest.id) === 'number') {
                 window.guestsData[guest.id] = guest
               }
             }

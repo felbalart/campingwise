@@ -1,4 +1,7 @@
 class Guest < ApplicationRecord
+  validates :name, presence: true
+  validates :email,  uniqueness: true, presence: true
+
 
   def display_name
     "#{name} (#{email})"

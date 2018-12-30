@@ -18,11 +18,10 @@
       </div>
 
       <div class="visible-reserve-forms-container">
-        <%= render partial: 'reserve_sub_form', locals: { f: f }%>
+        <!--forms are added by JS-->
       </div>
 
       <button type="button" id="add-reserve-button" onclick="addReserveForm();">+ Reserva</button>
-
       <%=f.submit%>
   <%end%>
 </div>

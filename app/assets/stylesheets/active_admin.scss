@@ -26,11 +26,23 @@ $skinLogo: 0;
 
 .main-form {
   .existing-guest span {
-    background-color: #b3b3b3;
+    background-color: #e6e6e6;
   }
 
   .datepicker {
     width: 130px;
   }
 
+  .site-select2 + span.select2 {
+    width: 300px !important;
+  }
+
+  #add-reserve-button {
+    margin-bottom: 50px;
+    display: block;
+  }
+
+  input[type=number] {
+    max-width: 125px;
+  }
 }

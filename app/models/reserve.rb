@@ -1,6 +1,7 @@
 class Reserve < ApplicationRecord
   belongs_to :order
   belongs_to :site
+  # TODO validate avoid >=2 reserves same site same dates
 end
 
 # == Schema Information
