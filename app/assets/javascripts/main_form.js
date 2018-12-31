@@ -16,7 +16,6 @@ function updateGuestData(guestId) {
 }
 
 function addReserveForm() {
-  if($('.hidden-reserve-form-mold').length === 0) { return; }
   if(typeof(window.reserveCount) === 'undefined') { window.reserveCount = 0; }
   window.reserveCount += 1;
   var newFormIndex = window.reserveCount;
@@ -26,10 +25,46 @@ function addReserveForm() {
   newForm.find("span.select2").remove();
   newForm.find("select").select2();
   newForm.appendTo('.visible-reserve-forms-container');
+  return newFormIndex;
+}
+
+function populateReserveForm(reserveData, formIndex) {
+  $('#order_reserve' + formIndex + '_site_id').select2('val', ('' + reserveData.site_id));
+  var start_date_val = (reserveData.start_date !== null) ? formatDateDBtoCL(reserveData.start_date) : '';
+  $('#order_reserve' + formIndex + '_start_date').val(start_date_val);
+  var end_date_val = (reserveData.end_date !== null) ? formatDateDBtoCL(reserveData.end_date) : '';
+  $('#order_reserve' + formIndex + '_end_date').val(end_date_val);
+  $('#order_reserve' + formIndex + '_adults_qty').val(reserveData.adults_qty);
+  $('#order_reserve' + formIndex + '_kids_qty').val(reserveData.kids_qty);
+  $('#order_reserve' + formIndex + '_fix_total_price')[0].checked = reserveData.fix_total_price;
+  $('#order_reserve' + formIndex + '_adult_price').val(reserveData.adult_price);
+  $('#order_reserve' + formIndex + '_kid_price').val(reserveData.kid_price);
+  $('#order_reserve' + formIndex + '_total_price').val(reserveData.total_price);
+}
+
+function loadReserves() {
+  var reserves = $('#reserves-data-container').data().reserves;
+  if(reserves.length === 0) {
+    addReserveForm();
+    return;
+  }
+  var ri = 0;
+  for (ri = 0; ri < reserves.length; ri++) {
+    var newFormIndex = addReserveForm();
+    populateReserveForm(reserves[ri], newFormIndex);
+  }
+}
+
+function formatDateDBtoCL(dateDbStr) {
+  var day = dateDbStr.substring(8,10);
+  var month = dateDbStr.substring(5,7);
+  var year = dateDbStr.substring(0,4);
+  return day + '/' + month + '/' + year;
 }
 
 $(function () {
-  addReserveForm();
+  if($('.hidden-reserve-form-mold').length === 0) { return; } // abort if current view is not main-form
+  else { loadReserves(); }
 
   $("#order_guest_id_input").on("change", function() {
     var selectedGuestId = $("#order_guest_id_input select").val();
@@ -40,28 +75,3 @@ $(function () {
       dateFormat: 'dd/mm/yy'
   });
 });
-
-/// TEMP
-
-function pl() {
-  $('#order_guest_name').val('Juan Perez');
-  $('#order_guest_email').val('el@email.com');
-  $('#order_guest_phone').val('+56 99 9116029711');
-  $('#order_tag').val('soyuntag');
-  $('#order_reserve1_start_date').val('11/10/2018');
-  $('#order_reserve1_end_date').val('19/10/2018');
-  $('#order_reserve1_adults_qty').val(7);
-  $('#order_reserve1_kids_qty').val(22);
-  $('#order_reserve1_adult_price').val(5000);
-  $('#order_reserve1_kid_price').val(2500);
-  $('#order_reserve1_total_price').val(12200);
-  $('#order_reserve2_start_date').val('22/12/2018');
-  $('#order_reserve2_end_date').val('25/12/2018');
-  $('#order_reserve2_adults_qty').val(2);
-  $('#order_reserve2_kids_qty').val(0);
-  $('#order_reserve2_adult_price').val(7000);
-  $('#order_reserve2_kid_price').val(0);
-  $('#order_reserve2_total_price').val(9500);
-
-
-}

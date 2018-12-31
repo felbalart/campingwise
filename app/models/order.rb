@@ -1,5 +1,6 @@
 class Order < ApplicationRecord
   belongs_to :guest
+  has_many :reserves, class_name: 'Reserve'
 
   def display_name
     "Orden ##{id} - #{guest.display_name}"
