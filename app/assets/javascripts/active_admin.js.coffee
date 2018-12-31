@@ -2,3 +2,4 @@
 #= require activeadmin_addons/all
 #= require search-select
 #= require main_form
+#= require calendar

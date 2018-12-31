@@ -51,6 +51,9 @@ $skinLogo: 0;
 
   #calendar-month-selector + span.select2 {
     width: 200px !important;
+    margin-left: 10px;
+    margin-bottom: 10px;
+    font-size: 14px;
   }
 
   #matrix-container {
@@ -59,14 +62,43 @@ $skinLogo: 0;
 
   .week-matrix {
     margin: 10px;
-  }
 
-  /// temp boring table style
-  table {
-    border-collapse: collapse;
-  }
+    td, th {
+      border-right: 1px solid #e8e8e8;
+      padding: 1px !important;
+      text-align: center !important;
+    }
 
-  table, th, td {
-    border: 1px solid black;
+    .matrix-cell {
+
+      div {
+        width: 50px;
+        height: 50px;
+        overflow: hidden;
+        word-wrap: break-word;
+        display: table;
+      }
+
+      a {
+        text-decoration: none !important;
+        vertical-align: middle;
+        line-height: normal;
+        height: 50px;
+        display: table-cell;
+        margin: 50%;
+      }
+
+      &.available-cell {
+        background-color: #ffffff;
+      }
+
+      &.single-reserve-cell {
+        background-color: #b3d9ff;
+      }
+
+      &.multiple-reserve-cell {
+        background-color: #c299ff;
+      }
+    }
   }
 }

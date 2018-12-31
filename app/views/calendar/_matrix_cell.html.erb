@@ -1,9 +1,20 @@
-<span class="matrix-cell">
   <% if reserves.count.zero? %>
-    <%= link_to '+', new_order_path(site_id: site.id, start_date: day), target: '_blank' %>
+    <td class="matrix-cell available-cell">
+      <div>
+        <%= link_to '+', new_order_path(site_id: site.id, start_date: day), target: '_blank' %>
+      </div>
+    </td>
+
   <% elsif reserves.count == 1%>
-    <%= link_to reserves.first.guest.name, order_path(reserves.first.order), target: '_blank' %>
+    <td class="matrix-cell single-reserve-cell">
+      <div>
+        <%= link_to reserves.first.guest.name, order_path(reserves.first.order), target: '_blank' %>
+      </div>
+    </td>
   <% else %>
-    <%= link_to reserves.count, reserves_path( q: { site_id_eq: reserves.first.site.id, start_date_lteq: day, end_date_gteq: day }), target: '_blank' %>
+    <td class="matrix-cell multiple-reserve-cell">
+      <div>
+        <%= link_to reserves.count, reserves_path( q: { site_id_eq: reserves.first.site.id, start_date_lteq: day, end_date_gteq: day }), target: '_blank' %>
+      </div>
+    </td>
   <% end %>
-</span>

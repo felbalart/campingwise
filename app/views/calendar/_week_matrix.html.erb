@@ -1,16 +1,16 @@
 <div class="week-matrix">
-  <table style="width:100%">
+  <table class="index_table">
     <tr>
+      <th>Inst.</th>
       <% days.each do |day| %>
-        <th><%= "#{CalendarService::SPANISH_DAY_INITIALS[day.wday - 1]}. #{day.day}/#{day.month}" %></th>
+        <th><%= "#{CalendarService::SPANISH_DAY_INITIALS[day.wday - 1]} #{day.day}/#{day.month}" %></th>
       <% end %>
     </tr>
     <% sites.each do |site| %>
       <tr>
+      <th><%= site.name %></th>
       <% days.each do |day| %>
-        <td>
           <%= render partial: 'matrix_cell', locals: { reserves: service.reserves_for_cell(site.id, day), site: site, day: day }%>
-        </td>
       <% end %>
       </tr>
     <% end %>
