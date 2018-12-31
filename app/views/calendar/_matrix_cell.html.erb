@@ -1,0 +1,9 @@
+<span class="matrix-cell">
+  <% if reserves.count.zero? %>
+    <%= link_to '+', new_order_path(site_id: site.id, start_date: day), target: '_blank' %>
+  <% elsif reserves.count == 1%>
+    <%= link_to reserves.first.guest.name, order_path(reserves.first.order), target: '_blank' %>
+  <% else %>
+    <%= link_to reserves.count, reserves_path( q: { site_id_eq: reserves.first.site.id, start_date_lteq: day, end_date_gteq: day }), target: '_blank' %>
+  <% end %>
+</span>

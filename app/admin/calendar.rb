@@ -1,4 +1,4 @@
-ActiveAdmin.register_page 'calendar ', title: 'aa' do
+ActiveAdmin.register_page 'calendar' do
   content do
     puts 'florin111'
     puts params

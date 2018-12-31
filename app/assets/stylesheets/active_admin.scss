@@ -52,4 +52,21 @@ $skinLogo: 0;
   #calendar-month-selector + span.select2 {
     width: 200px !important;
   }
+
+  #matrix-container {
+    display: inline-flex;
+  }
+
+  .week-matrix {
+    margin: 10px;
+  }
+
+  /// temp boring table style
+  table {
+    border-collapse: collapse;
+  }
+
+  table, th, td {
+    border: 1px solid black;
+  }
 }

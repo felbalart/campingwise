@@ -1,0 +1,18 @@
+<div class="week-matrix">
+  <table style="width:100%">
+    <tr>
+      <% days.each do |day| %>
+        <th><%= "#{CalendarService::SPANISH_DAY_INITIALS[day.wday - 1]}. #{day.day}/#{day.month}" %></th>
+      <% end %>
+    </tr>
+    <% sites.each do |site| %>
+      <tr>
+      <% days.each do |day| %>
+        <td>
+          <%= render partial: 'matrix_cell', locals: { reserves: service.reserves_for_cell(site.id, day), site: site, day: day }%>
+        </td>
+      <% end %>
+      </tr>
+    <% end %>
+  </table>
+</div>

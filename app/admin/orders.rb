@@ -18,6 +18,7 @@ ActiveAdmin.register Order do
       end
   end
     def build_new_resource
+      # TODO pre-load form correctly when params site_id and start_date are received
       if action_name == 'create'
         result = CreateOrder.for(op: params[:order].permit!.to_h)
         if result.is_a?(String)
