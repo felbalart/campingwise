@@ -50,6 +50,7 @@ es-CL:
         guest_id: Huésped
         guest: Huésped
         tag: Tag
+        reserves: Reservas
       reserve:
         <<: *shared
         order_id: Orden

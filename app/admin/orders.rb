@@ -4,27 +4,36 @@ ActiveAdmin.register Order do
   form partial: 'main_form', title: 'Registro Principal'
 
   controller do
-    def create
-      create! do |format|
-        format.html do
-          if @error_message.present?
-            flash.now[:error] = @error_message.gsub(';','<br/>').html_safe
-            render 'form'
-          else
-            flash_obj = { notice: 'Orden creada exitosamente!' }
-            redirect_to order_path(resource), flash: flash_obj
-          end
-        end
+    def create(options={}, &block)
+      object = build_resource
+      if @error_message.blank?
+        options[:location] ||= smart_resource_url
+      else
+        object.errors.add(:base, @error_message)
+        flash.now[:error] = "Errores:;#{@error_message}".gsub(';','<br/>').html_safe
       end
-  end
+      respond_with_dual_blocks(object, options, &block)
+    end
+
+    def update(options={}, &block)
+      object = resource
+      result = ProcessOrder.for(op: params[:order].permit!.to_h, order: object)
+      @error_message = result[:errors_msg]
+      if @error_message.blank?
+        options[:location] ||= smart_resource_url
+      else
+        object.errors.add(:base, @error_message)
+        flash.now[:error] = "Errores:;#{@error_message}".gsub(';','<br/>').html_safe
+      end
+      respond_with_dual_blocks(object, options, &block)
+    end
+
     def build_new_resource
       if action_name == 'create'
-        result = CreateOrder.for(op: params[:order].permit!.to_h)
-        if result.is_a?(String)
-          @error_message = result
-        else # if ok result will be order obj
-          return result
-        end
+        result = ProcessOrder.for(op: params[:order].permit!.to_h)
+        order = result[:order]
+        @error_message = result[:errors_msg]
+        return order
       end
       if action_name == 'new'
         order = super
