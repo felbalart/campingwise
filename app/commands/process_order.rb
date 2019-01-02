@@ -1,9 +1,10 @@
-class CreateOrder < PowerTypes::Command.new(:op)
+class ProcessOrder < PowerTypes::Command.new(:op, order: Order.new)
   def perform
-
     guest = guest_from_params
     guest.validate
-    order = order_from_params
+    # order = order_from_params
+    order = @order
+    order.tag = @op[:tag] if @op[:tag].present?
     order.guest = guest
     order.validate
     reserves_hash = reserves_from_params
@@ -14,14 +15,16 @@ class CreateOrder < PowerTypes::Command.new(:op)
     errors_hash = reserves_hash.map { |k, res| ["Reserva #{k}", error_messages(res)] }.to_h
     errors_hash.merge!('Huésped' => error_messages(guest), 'Orden' => error_messages(order))
     errors_hash.compact!
+    errors_str = nil
     if errors_hash.any?
       errors_str = errors_hash.map { |k, v| "#{k}: #{v}"}.join(';').delete('[]"')
-      return "Error: #{errors_str}"
+      errors_str = "Errores: #{errors_str}"
+    else # everything ok
+      guest.save!
+      order.save!
+      reserves_hash.values.each(&:save!)
     end
-    guest.save!
-    order.save!
-    reserves_hash.values.each(&:save!)
-    order
+    { order: order, errors_msg: errors_str }
   end
 
   def guest_from_params
@@ -35,20 +38,33 @@ class CreateOrder < PowerTypes::Command.new(:op)
     guest
   end
 
+  # DEPRECATED
   def order_from_params
-    Order.new(tag: @op[:tag])
+    order =
+      if @op[:id].present?
+        Order.find(@op[:id])
+      else
+        Order.new
+      end
+    order.tag = @op[:tag] if @op[:tag].present?
+    order
   end
 
   def reserves_from_params
     @op.map do |k, v|
       next unless k.to_s.starts_with?('reserve')
       next if k == 'reserve0' # hidden mold
-      [k.remove('reserve').to_i, build_reserve(v)]
+      [k.remove('reserve').to_i, build_or_fetch_reserve(v)]
     end.compact.to_h
   end
 
-  def build_reserve(data)
-    Reserve.new(
+  def build_or_fetch_reserve(data)
+    reserve = if data[:id].present?
+                Reserve.find(data[:id])
+              else
+                Reserve.new
+              end
+    reserve.assign_attributes(
       site_id: data[:site_id],
       start_date: parse_date(data[:start_date]),
       end_date: parse_date(data[:end_date]),
@@ -59,6 +75,7 @@ class CreateOrder < PowerTypes::Command.new(:op)
       kid_price: data[:kid_price],
       total_price: data[:total_price]
     )
+    reserve
   end
 
   def parse_boolean(value)

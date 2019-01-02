@@ -1,3 +1,3 @@
-ActiveAdmin.register_page 'Registro Principal' do
-  menu label: "Registro Principal", url: '/orders/new', priority: 1
+ActiveAdmin.register_page 'Registro' do
+  menu label: 'Registro', url: '/orders/new', priority: 1
 end

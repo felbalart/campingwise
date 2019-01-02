@@ -1,6 +1,6 @@
-<%= content_tag(:div, nil, id: 'reserves-data-container', data: { reserves: resource.reserves })%>
+<%= content_tag(:div, nil, id: 'reserves-data-container', data: { reserves: resource&.reserves })%>
 <div class="main-form">
-  <%= semantic_form_for resource, url: orders_path do |f| %>
+  <%= semantic_form_for resource do |f| %>
       <%= f.inputs name: 'Huésped' do %>
           <%= f.input :guest_id, as: :search_select, label: Guest.human_attribute_name(:name), url: guests_path, fields: [:name, :email], display_name: :display_name, minimum_input_length: 2, class: 'base-field-input' %>
           <%= f.semantic_fields_for :guest do |gf| %>
