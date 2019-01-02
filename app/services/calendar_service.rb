@@ -19,6 +19,10 @@ class CalendarService < PowerTypes::Service.new(:start_date)
       end.to_h
   end
 
+  def selected_month_text
+    build_month_selector_options.values[6]
+  end
+
   def grouped_reserves
     @grouped_reserves ||= begin
       res = Reserve.where('start_date >= ?', @start_date)

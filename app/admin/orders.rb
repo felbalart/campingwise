@@ -1,8 +1,9 @@
 ActiveAdmin.register Order do
+  menu priority: 5
   permit_params :guest_id, :tag
 
 
-  form partial: 'main_form', title: 'Registro Principal'
+  form partial: 'main_form', title: 'Registrar Nueva Orden'
 
   show { render partial: 'show' }
 

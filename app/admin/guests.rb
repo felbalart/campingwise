@@ -1,4 +1,5 @@
 ActiveAdmin.register Guest do
+  menu priority: 7
   permit_params :email, :name, :phone
 
   controller do
