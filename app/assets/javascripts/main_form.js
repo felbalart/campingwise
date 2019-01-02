@@ -29,6 +29,7 @@ function addReserveForm() {
 }
 
 function populateReserveForm(reserveData, formIndex) {
+  $('#order_reserve' + formIndex + '_id').val(reserveData.id);
   $('#order_reserve' + formIndex + '_site_id').select2('val', ('' + reserveData.site_id));
   var start_date_val = (reserveData.start_date !== null) ? formatDateDBtoCL(reserveData.start_date) : '';
   $('#order_reserve' + formIndex + '_start_date').val(start_date_val);

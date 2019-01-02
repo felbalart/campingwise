@@ -1,11 +1,12 @@
 <%= f.inputs name: 'Reserva 0' do %>
     <%= f.semantic_fields_for :'reserve0' do |rf| %>
+        <%= rf.input :id, as: :number, wrapper_html: { style: 'display: none;' }  %>
         <%= rf.input :site_id, label: Reserve.human_attribute_name(:site), as: :select, collection: Site.all, member_label: :full_name, input_html: { class: 'site-select2', value: 'Cabaña - c1a' } %>
         <%= rf.input :start_date, label: Reserve.human_attribute_name(:start_date), as: :string, input_html: { class: 'datepicker', value: Date.today.strftime('%d/%m/%Y') } %>
         <%= rf.input :end_date, label: Reserve.human_attribute_name(:end_date), as: :string, input_html: { class: 'datepicker', value: Date.tomorrow.strftime('%d/%m/%Y') } %>
         <%= rf.input :adults_qty, label: Reserve.human_attribute_name(:adults_qty), as: :number %>
         <%= rf.input :kids_qty, label: Reserve.human_attribute_name(:kids_qty), as: :number %>
-        <!--TODO: disable adult/kid prices when fix_total_price gets set to true, and vieversa-->
+        <!--TODO: disable adult/kid prices when fix_total_price gets set to true, and viceversa-->
         <%= rf.input :fix_total_price, label: Reserve.human_attribute_name(:fix_total_price), as: :boolean%>
         <%= rf.input :adult_price, label: Reserve.human_attribute_name(:adult_price), as: :number %>
         <%= rf.input :kid_price, label: Reserve.human_attribute_name(:kid_price), as: :number %>
