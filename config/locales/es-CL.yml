@@ -97,4 +97,14 @@ es-CL:
       category:
         cabin: Cabaña
         camp_site: Sitio
-
+  flash:
+    actions:
+      create:
+        notice: '%{resource_name} creada exitosamente.'
+        alert: '%{resource_name} no pudo ser creada.'
+      update:
+        notice: '%{resource_name} actualizada exitosamente.'
+        alert: '%{resource_name} no pudo ser actualizada.'
+      destroy:
+        notice: '%{resource_name} eliminada exitosamente.'
+        alert: '%{resource_name} no pudo ser eliminada.'

@@ -25,6 +25,9 @@ function addReserveForm() {
   newForm.find("span.select2").remove();
   newForm.find("select").select2();
   newForm.appendTo('.visible-reserve-forms-container');
+  newForm.find('input[type=checkbox]').change(function () {
+    setPriceInputs();
+  });
   return newFormIndex;
 }
 
@@ -63,9 +66,42 @@ function formatDateDBtoCL(dateDbStr) {
   return day + '/' + month + '/' + year;
 }
 
+function setPriceInputs() {
+  if(typeof(window.reserveCount) === 'undefined') { window.reserveCount = 0; }
+  var ri = 0;
+  for (ri = 0; ri <= window.reserveCount; ri++) {
+    if ($('#order_reserve' + ri + '_fix_total_price').length === 0) { continue; }
+    var priceFixed = $('#order_reserve' + ri + '_fix_total_price')[0].checked;
+    $('#order_reserve' + ri + '_adult_price').toggleClass('disabled-input', priceFixed);
+    $('#order_reserve' + ri + '_kid_price').toggleClass('disabled-input', priceFixed);
+    $('#order_reserve' + ri + '_total_price').toggleClass('disabled-input', !priceFixed);
+    $('#order_reserve' + ri + '_adult_price').prop('disabled', priceFixed);
+    $('#order_reserve' + ri + '_kid_price').prop('disabled', priceFixed);
+    $('#order_reserve' + ri + '_total_price').prop('readonly', !priceFixed);
+    if(priceFixed) {
+      $('#order_reserve' + ri + '_adult_price').val('');
+      $('#order_reserve' + ri + '_kid_price').val('');
+    } else {
+      var adults = $('#order_reserve' + ri + '_adults_qty').val();
+      var kids = $('#order_reserve' + ri + '_kids_qty').val();
+      var adults_price = $('#order_reserve' + ri + '_adult_price').val();
+      var kids_price = $('#order_reserve' + ri + '_kid_price').val();
+      var total_price = (adults * adults_price) + (kids * kids_price);
+      $('#order_reserve' + ri + '_total_price').val(total_price);
+    }
+  }
+}
+
 $(function () {
   if($('.hidden-reserve-form-mold').length === 0) { return; } // abort if current view is not main-form
-  else { loadReserves(); }
+  else {
+    loadReserves();
+    setPriceInputs();
+  }
+
+  $('.reserve-price-related-input').change(function () {
+    setPriceInputs();
+  });
 
   $("#order_guest_id_input").on("change", function() {
     var selectedGuestId = $("#order_guest_id_input select").val();

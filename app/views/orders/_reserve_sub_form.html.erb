@@ -4,12 +4,11 @@
         <%= rf.input :site_id, label: Reserve.human_attribute_name(:site), as: :select, collection: Site.all, member_label: :full_name, input_html: { class: 'site-select2', value: 'Cabaña - c1a' } %>
         <%= rf.input :start_date, label: Reserve.human_attribute_name(:start_date), as: :string, input_html: { class: 'datepicker', value: Date.today.strftime('%d/%m/%Y') } %>
         <%= rf.input :end_date, label: Reserve.human_attribute_name(:end_date), as: :string, input_html: { class: 'datepicker', value: Date.tomorrow.strftime('%d/%m/%Y') } %>
-        <%= rf.input :adults_qty, label: Reserve.human_attribute_name(:adults_qty), as: :number %>
-        <%= rf.input :kids_qty, label: Reserve.human_attribute_name(:kids_qty), as: :number %>
-        <!--TODO: disable adult/kid prices when fix_total_price gets set to true, and viceversa-->
-        <%= rf.input :fix_total_price, label: Reserve.human_attribute_name(:fix_total_price), as: :boolean%>
-        <%= rf.input :adult_price, label: Reserve.human_attribute_name(:adult_price), as: :number %>
-        <%= rf.input :kid_price, label: Reserve.human_attribute_name(:kid_price), as: :number %>
-        <%= rf.input :total_price, label: Reserve.human_attribute_name(:total_price), as: :number %>
+        <%= rf.input :adults_qty, label: Reserve.human_attribute_name(:adults_qty), as: :number, input_html: { class: 'reserve-price-related-input' } %>
+        <%= rf.input :kids_qty, label: Reserve.human_attribute_name(:kids_qty), as: :number, input_html: { class: 'reserve-price-related-input' } %>
+        <%= rf.input :fix_total_price, label: Reserve.human_attribute_name(:fix_total_price), as: :boolean, input_html: { class: 'reserve-price-related-input' } %>
+        <%= rf.input :adult_price, label: Reserve.human_attribute_name(:adult_price), as: :number, input_html: { class: 'reserve-price-related-input' } %>
+        <%= rf.input :kid_price, label: Reserve.human_attribute_name(:kid_price), as: :number, input_html: { class: 'reserve-price-related-input' } %>
+        <%= rf.input :total_price, label: Reserve.human_attribute_name(:total_price), as: :number, input_html: { class: 'reserve-price-related-input' } %>
     <% end %>
 <% end %>

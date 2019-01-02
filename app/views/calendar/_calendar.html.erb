@@ -8,11 +8,13 @@
   <%= link_to '<button> < </button>'.html_safe, calendar_path(date: (service.start_date - 1.month).strftime('%Y-%m')) %>
   <%= link_to '<button> > </button>'.html_safe, calendar_path(date: (service.start_date + 1.month).strftime('%Y-%m')) %>
 
-  <div id="matrix-container">
+  <div id="main-matrix-container">
     <% service.grouped_sites.each do |site_group| %>
+      <div class="site-group-matrix-container">
         <% service.grouped_days.each do |days| %>
           <%= render partial: 'week_matrix', locals: { service: service, sites: site_group, days: days } %>
       <% end %>
+      </div>
     <% end %>
   </div>
 </div>

@@ -4,6 +4,19 @@ class Reserve < ApplicationRecord
   delegate :guest, to: :order
 
   # TODO validate avoid >=2 reserves same site same dates
+
+  validate :price_logic
+  validates :total_price, presence: true
+
+  def price_logic
+    if fix_total_price
+      errors.add(:adult_price, 'no puede existir si se escoje fijar precio total') if adult_price.present?
+      errors.add(:kid_price, 'no puede existir si se escoje fijar precio total') if kid_price.present?
+    else
+      expected_total = (adults_qty.to_i * adult_price.to_i) + (kids_qty.to_i * kid_price.to_i)
+      errors.add(:total_price, 'no calza con cantidades y precios estipulados') unless total_price == expected_total
+    end
+  end
 end
 
 # == Schema Information

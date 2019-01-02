@@ -19,6 +19,9 @@ $skinLogo: 0;
 
 // @import "active_skin";
 
+$disabledInputGray: #f2f2f2;
+$disabledInputFontGray: #a6a6a6;
+
 // Overriding any non-variable SASS must be done after the fact.
 // For example, to change the default status-tag color:
 //
@@ -45,6 +48,14 @@ $skinLogo: 0;
   input[type=number] {
     max-width: 125px;
   }
+
+  .disabled-input {
+    background-color: $disabledInputGray !important;
+
+    span, &#quote_markup, &#quote_unit_price {
+      color: $disabledInputFontGray;
+    }
+  }
 }
 
 #calendar-view {
@@ -56,7 +67,7 @@ $skinLogo: 0;
     font-size: 14px;
   }
 
-  #matrix-container {
+  .site-group-matrix-container {
     display: inline-flex;
   }
 
