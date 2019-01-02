@@ -1,0 +1,33 @@
+attributes_table_for resource do
+  row :tag
+  row('Nº reservas') { |order| order.reserves.count }
+end
+
+panel 'Huésped'  do
+  attributes_table_for resource.guest do
+    row :id
+    row :name
+    row :email
+    row :phone
+  end
+end
+
+resource.reserves.each_with_index do |res, i|
+  panel "Reserva #{i + 1}" do
+    attributes_table_for res do
+      row :id
+      row :site
+      row :start_date
+      row :end_date
+      row :status
+      row :created_at
+      row :updated_at
+      row :adults_qty
+      row :kids_qty
+      row :fix_total_price
+      row(:adult_price) { |res| number_to_currency res.adult_price }
+      row(:kid_price) { |res| number_to_currency res.kid_price }
+      row(:total_price) { |res| number_to_currency res.total_price }
+    end
+  end
+end
