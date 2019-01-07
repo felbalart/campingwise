@@ -1,6 +1,6 @@
 class Site < ApplicationRecord
   extend Enumerize
-  enumerize :category, in: [:cabin, :camp_site]
+  enumerize :category, in: [:campsite, :family_cabin, :suite_cabin, :family_dome, :small_dome, :motorhome]
 
   def full_name
     "#{category_text} - #{name}"
@@ -17,4 +17,5 @@ end
 #  name       :string(255)
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  priority   :integer          default(999999)
 #

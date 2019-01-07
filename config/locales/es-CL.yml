@@ -45,6 +45,7 @@ es-CL:
         <<: *shared
         category: Tipo
         name: Nombre
+        priority: Prioridad
       order:
         <<: *shared
         guest_id: Huésped
@@ -93,6 +94,8 @@ es-CL:
         <<: *shared
         fee_name: Nombre
         amount: Monto
+        site_category: Categoría Sitio
+        default_fee: Default
       admin_user:
         <<: *shared
         email: Email
@@ -104,8 +107,12 @@ es-CL:
         admin: Admin
     site:
       category:
-        cabin: Cabaña
-        camp_site: Sitio
+        campsite: Sitio Camping
+        family_cabin: Cabaña Familiar
+        suite_cabin: Cabaña Suite
+        family_dome: Domo Familiar
+        small_dome: Domo Pequeño
+        motorhome: Motorhome
     order:
       state:
         annulled: Anulada

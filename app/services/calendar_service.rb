@@ -45,7 +45,7 @@ class CalendarService < PowerTypes::Service.new(:start_date)
   SITE_GROUP_SIZE = 5
   def grouped_sites
     @grouped_sites ||= begin
-      Site.all.each_slice(SITE_GROUP_SIZE).to_a
+      Site.order(:priority).each_slice(SITE_GROUP_SIZE).to_a
     end
   end
 
