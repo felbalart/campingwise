@@ -71,10 +71,10 @@ class ProcessOrder < PowerTypes::Command.new(:op, order: Order.new(state: :unpai
       end_date: parse_date(data[:end_date]),
       adults_qty: data[:adults_qty],
       kids_qty: data[:kids_qty],
-      fix_total_price: parse_boolean(data[:fix_total_price]),
+      fix_total_night_price: parse_boolean(data[:fix_total_night_price]),
       adult_price: data[:adult_price],
       kid_price: data[:kid_price],
-      total_price: data[:total_price]
+      total_night_price: data[:total_night_price]
     )
     reserve
   end

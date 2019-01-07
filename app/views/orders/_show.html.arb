@@ -37,10 +37,11 @@ resource.reserves.each_with_index do |res, i|
       row :updated_at
       row :adults_qty
       row :kids_qty
-      row :fix_total_price
+      row :fix_total_night_price
       row(:adult_price) { |res| number_to_currency res.adult_price }
       row(:kid_price) { |res| number_to_currency res.kid_price }
-      row(:total_price) { |res| number_to_currency res.total_price }
+      row(:total_night_price) { |res| number_to_currency res.total_night_price }
+      row(:total_final_price) { |res| number_to_currency res.total_final_price }
     end
   end
 end

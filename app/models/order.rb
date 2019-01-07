@@ -52,7 +52,7 @@ class Order < ApplicationRecord
   end
 
   def total_amount
-    reserves.sum(&:total_price)
+    reserves.sum(&:total_final_price)
   end
 
   def paid_amount

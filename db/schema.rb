@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_01_07_192756) do
+ActiveRecord::Schema.define(version: 2019_01_07_214056) do
 
   create_table "admin_users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -79,10 +79,10 @@ ActiveRecord::Schema.define(version: 2019_01_07_192756) do
     t.datetime "updated_at", null: false
     t.integer "adults_qty"
     t.integer "kids_qty"
-    t.boolean "fix_total_price"
+    t.boolean "fix_total_night_price"
     t.integer "adult_price"
     t.integer "kid_price"
-    t.integer "total_price"
+    t.integer "total_night_price"
     t.index ["order_id"], name: "index_reserves_on_order_id"
     t.index ["site_id"], name: "index_reserves_on_site_id"
   end

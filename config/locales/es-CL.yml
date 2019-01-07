@@ -68,10 +68,12 @@ es-CL:
         status: Estado
         adults_qty: Nº Adultos
         kids_qty: Nº Niños
-        fix_total_price: Fijar Precio Total
-        adult_price: Precio p/Adulto
-        kid_price: Precio p/Niño
-        total_price: Precio Total
+        fix_total_night_price: Fijar Precio p/Noche
+        adult_price: Precio Noche Adulto
+        kid_price: Precio Noche Niño
+        total_night_price: Precio Noche Total
+        total_final_price: Precio Total Final
+        nights_long: Cantidad Noches
       payment:
         <<: *shared
         order_id: Orden

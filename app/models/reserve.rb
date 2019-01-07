@@ -10,15 +10,15 @@ class Reserve < ApplicationRecord
 
   validate :price_logic
   validate :ends_after_start
-  validates :total_price, presence: true
+  validates :total_night_price, presence: true
 
   def price_logic
-    if fix_total_price
+    if fix_total_night_price
       errors.add(:adult_price, 'no puede existir si se escoje fijar precio total') if adult_price.present?
       errors.add(:kid_price, 'no puede existir si se escoje fijar precio total') if kid_price.present?
     else
       expected_total = (adults_qty.to_i * adult_price.to_i) + (kids_qty.to_i * kid_price.to_i)
-      errors.add(:total_price, 'no calza con cantidades y precios estipulados') unless total_price == expected_total
+      errors.add(:total_night_price, 'no calza con cantidades y precios estipulados') unless total_night_price == expected_total
     end
   end
 
@@ -27,6 +27,15 @@ class Reserve < ApplicationRecord
     if end_date < start_date
       errors.add(:end_date, "'Fecha Hasta' no puede ser anterior a 'Fecha Desde'")
     end
+  end
+
+  def nights_long
+    return unless start_date && end_date
+    (end_date - start_date).to_i
+  end
+
+  def total_final_price
+    total_night_price * nights_long.to_i
   end
 
   def status
@@ -48,10 +57,10 @@ end
 #  updated_at      :datetime         not null
 #  adults_qty      :integer
 #  kids_qty        :integer
-#  fix_total_price :boolean
+#  fix_total_night_price :boolean
 #  adult_price     :integer
 #  kid_price       :integer
-#  total_price     :integer
+#  total_night_price     :integer
 #
 # Indexes
 #
