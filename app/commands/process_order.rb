@@ -1,4 +1,4 @@
-class ProcessOrder < PowerTypes::Command.new(:op, order: Order.new)
+class ProcessOrder < PowerTypes::Command.new(:op, order: Order.new(state: :unpaid))
   def perform
     guest = guest_from_params
     guest.validate
@@ -12,7 +12,6 @@ class ProcessOrder < PowerTypes::Command.new(:op, order: Order.new)
       res.order = order
       res.validate
     end
-    order.reserves = reserves_hash.values
     errors_hash = reserves_hash.map { |k, res| ["Reserva #{k}", error_messages(res)] }.to_h
     errors_hash.merge!('Huésped' => error_messages(guest), 'Orden' => error_messages(order))
     errors_hash.compact!
@@ -20,8 +19,10 @@ class ProcessOrder < PowerTypes::Command.new(:op, order: Order.new)
     if errors_hash.any?
       errors_str = errors_hash.map { |k, v| "#{k}: #{v}"}.join(';').delete('[]"')
     else # everything ok
+      order.reserves = reserves_hash.values
       guest.save!
       order.save!
+      reserves_hash.values.each { |ores| ores.order_id = order.id  }
       reserves_hash.values.each(&:save!)
     end
     { order: order, errors_msg: errors_str }

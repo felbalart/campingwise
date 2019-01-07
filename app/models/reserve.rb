@@ -3,9 +3,13 @@ class Reserve < ApplicationRecord
   belongs_to :site
   delegate :guest, to: :order
 
+  scope :active, -> { includes(:order).where.not(orders: { state: :annulled}) }
+
   # TODO validate avoid >=2 reserves same site same dates
 
+
   validate :price_logic
+  validate :ends_after_start
   validates :total_price, presence: true
 
   def price_logic
@@ -16,6 +20,17 @@ class Reserve < ApplicationRecord
       expected_total = (adults_qty.to_i * adult_price.to_i) + (kids_qty.to_i * kid_price.to_i)
       errors.add(:total_price, 'no calza con cantidades y precios estipulados') unless total_price == expected_total
     end
+  end
+
+  def ends_after_start
+    return unless start_date && end_date
+    if end_date < start_date
+      errors.add(:end_date, "'Fecha Hasta' no puede ser anterior a 'Fecha Desde'")
+    end
+  end
+
+  def status
+    order&.state_text
   end
 end
 

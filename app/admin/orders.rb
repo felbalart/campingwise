@@ -2,6 +2,7 @@ ActiveAdmin.register Order do
   menu priority: 5
   permit_params :guest_id, :tag
 
+  actions :all, except: [:destroy]
 
   form partial: 'main_form', title: 'Registrar Nueva Orden'
 
@@ -51,5 +52,22 @@ ActiveAdmin.register Order do
       end
       super
     end
+  end
+
+  member_action :annul, method: :put do
+    resource.update(state: :annulled)
+    redirect_to resource_path, notice: 'La orden fue anulada'
+  end
+
+  action_item :annul, only: :show  do
+    link_to 'Anular Orden', { action: :annul }, method: :put, data: { confirm: 'Está seguro que desea anular la orden?' }
+  end
+
+  action_item :add_payment, only: :show  do
+    link_to 'Agregar Pago', new_payment_path(order_id: resource.id)
+  end
+
+  action_item :add_invoice, only: :show  do
+    link_to 'Agregar Boleta', new_invoice_path(order_id: resource.id)
   end
 end

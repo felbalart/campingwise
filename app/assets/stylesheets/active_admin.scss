@@ -22,10 +22,53 @@ $skinLogo: 0;
 $disabledInputGray: #f2f2f2;
 $disabledInputFontGray: #a6a6a6;
 
+$calendarDarkCellFontColor: #5e6469;
+$calendarLightCellFontColor: #ffffff;
+$orderUnpaid: #ffa366;
+$orderSemiPaid: #ffff80;
+$orderPaid: #99e699;
+$orderPaidBilled: #cce6ff;
+$orderUnpaidPast: #e65c00;
+$orderSemiPaidPast: #e6e600;
+$orderPaidPast: #2eb82e;
+$orderPaidBilledPast: #3399ff;
+
+$statusTagAnnulled: #595959;
+$statusTagPast: #3d3d5c;
+$statusTagPresent: #737373;
+$statusTagFuture: #9494b8;
+
 // Overriding any non-variable SASS must be done after the fact.
 // For example, to change the default status-tag color:
 //
 //   .status_tag { background: #6090DB; }
+
+.status_tag {
+  &.annulled {
+    background-color: $statusTagAnnulled;
+  }
+  &.unpaid {
+    background-color: $orderUnpaidPast;
+  }
+  &.semi_paid {
+    background-color: $orderSemiPaidPast;
+  }
+  &.paid {
+    background-color: $orderPaidPast;
+  }
+  &.paid_billed {
+    background-color: $orderPaidBilledPast;
+  }
+  &.past {
+    background-color: $statusTagPast;
+  }
+  &.present {
+    background-color: $statusTagPresent;
+  }
+  &.future {
+    background-color: $statusTagFuture;
+  }
+}
 
 .main-form {
   .existing-guest span {
@@ -104,7 +147,40 @@ $disabledInputFontGray: #a6a6a6;
       }
 
       &.single-reserve-cell {
-        background-color: #b3d9ff;
+        a {
+          color: $calendarDarkCellFontColor !important;
+        }
+        &.past a {
+          color: $calendarLightCellFontColor !important;
+        }
+
+        &.order-unpaid {
+          background-color: $orderUnpaid;
+          &.past {
+            background-color: $orderUnpaidPast;
+          }
+        }
+
+        &.order-semi_paid{
+          background-color: $orderSemiPaid;
+          &.past {
+            background-color: $orderSemiPaidPast;
+          }
+        }
+
+        &.order-paid{
+          background-color: $orderPaid;
+          &.past {
+            background-color: $orderPaidPast;
+          }
+        }
+
+        &.order-paid_billed{
+          background-color: $orderPaidBilled;
+          &.past {
+            background-color: $orderPaidBilledPast;
+          }
+        }
       }
 
       &.multiple-reserve-cell {

@@ -51,6 +51,12 @@ es-CL:
         guest: Huésped
         tag: Tag
         reserves: Reservas
+        payments: Pagos
+        invoices: Boletas
+        state: Estado
+        total_amount: Monto Total
+        paid_amount: Monto Pagado
+        balance_due: Saldo por Pagar
       reserve:
         <<: *shared
         order_id: Orden
@@ -80,6 +86,7 @@ es-CL:
         category: Tipo
         number: Número
         amount: Monto
+        invoiced_at: Fecha Boleta
       base_fee:
         <<: *shared
         fee_name: Nombre
@@ -97,6 +104,23 @@ es-CL:
       category:
         cabin: Cabaña
         camp_site: Sitio
+    order:
+      state:
+        annulled: Anulada
+        unpaid: Impaga
+        semi_paid: Abonada
+        paid: Pagada
+        paid_billed: Pagada y facturada
+    payment:
+     payment_method:
+      credit_card: Tarjeta Crédito
+      debit_card: Tarjeta Débito
+      cash: Efectivo
+      transfer: Transferencia Bancaria
+    invoice:
+      category:
+        person_bill: Boleta
+        commercial_invoice: Factura
   flash:
     actions:
       create:

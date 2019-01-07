@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_12_29_212950) do
+ActiveRecord::Schema.define(version: 2019_01_07_192756) do
 
   create_table "admin_users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -46,6 +46,7 @@ ActiveRecord::Schema.define(version: 2018_12_29_212950) do
     t.decimal "amount", precision: 10
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.date "invoiced_at"
     t.index ["order_id"], name: "index_invoices_on_order_id"
   end
 
@@ -54,6 +55,7 @@ ActiveRecord::Schema.define(version: 2018_12_29_212950) do
     t.string "tag"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "state"
     t.index ["guest_id"], name: "index_orders_on_guest_id"
   end
 

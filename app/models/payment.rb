@@ -1,5 +1,15 @@
 class Payment < ApplicationRecord
   belongs_to :order
+  extend Enumerize
+  enumerize :payment_method, in: [:credit_card, :debit_card, :cash, :transfer]
+
+  validates_presence_of :order_id, :amount, :payed_at, :payment_method
+  after_save :update_order_state
+  after_destroy :update_order_state
+
+  def update_order_state
+    order.update_state!
+  end
 end
 
 # == Schema Information

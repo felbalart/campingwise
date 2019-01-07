@@ -6,7 +6,7 @@
     </td>
 
   <% elsif reserves.count == 1%>
-    <td class="matrix-cell single-reserve-cell">
+    <td class="matrix-cell single-reserve-cell <%="order-#{reserves.first.order.state}#{' past' if day < Date.today}"%>">
       <div>
         <%= link_to reserves.first.guest.name, order_path(reserves.first.order), target: '_blank' %>
       </div>

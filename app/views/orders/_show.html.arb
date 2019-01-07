@@ -1,8 +1,3 @@
-attributes_table_for resource do
-  row :tag
-  row('Nº reservas') { |order| order.reserves.count }
-end
-
 panel 'Huésped'  do
   attributes_table_for resource.guest do
     row :id
@@ -12,6 +7,24 @@ panel 'Huésped'  do
   end
 end
 
+attributes_table_for resource do
+  row(:state) do |order|
+    span do
+      status_tag(order.state_text, class: order.state)
+      status_tag(order.date_state_text, class: order.date_state) if order.date_state
+    end
+  end
+  row('Monto')  { |ord| "Total: #{number_to_currency(ord.total_amount)} - Pagado: #{number_to_currency(ord.paid_amount)}" }
+  # row(Order.human_attribute_name(:total_amount))  { |ord| number_to_currency(ord.total_amount) }
+  # row(Order.human_attribute_name(:paid_amount))  { |ord| number_to_currency ord.paid_amount }
+  # row(Order.human_attribute_name(:balance_due))  { |ord| number_to_currency ord.balance_due }
+  row :tag
+  # row('Nº reservas') { |order| order.reserves.count }
+  # row('Nº pagos') { |order| order.payments.count }
+  # row('Nº boletas') { |order| order.invoices.count }
+end
+
+h3 "Reservas (#{resource.reserves.count})" if resource.reserves.any?
 resource.reserves.each_with_index do |res, i|
   panel "Reserva #{i + 1}" do
     attributes_table_for res do
@@ -28,6 +41,39 @@ resource.reserves.each_with_index do |res, i|
       row(:adult_price) { |res| number_to_currency res.adult_price }
       row(:kid_price) { |res| number_to_currency res.kid_price }
       row(:total_price) { |res| number_to_currency res.total_price }
+    end
+  end
+end
+
+h3 "Pagos (#{resource.payments.count})" if resource.payments.any?
+resource.payments.each_with_index do |paym, i|
+  panel "Pago #{i + 1}" do
+    attributes_table_for paym do
+      row :id
+      row(:amount) { |pa| number_to_currency pa.amount }
+      row :payed_at
+      row(:payment_method) { |pa| pa.payment_method_text }
+      unless paym.payed_at == paym.created_at.to_date && paym.payed_at == paym.updated_at.to_date
+        row(:created_at)
+        row(:updated_at)
+      end
+    end
+  end
+end
+
+h3 "Boletas (#{resource.invoices.count})" if resource.invoices.any?
+resource.invoices.each_with_index do |inv, i|
+  panel "Boleta #{i + 1}" do
+    attributes_table_for inv do
+      row :id
+      row(:category) { |inv| inv.category_text }
+      row(:number)
+      row(:amount) { |inv| number_to_currency inv.amount }
+      row(:invoiced_at)
+      unless inv.invoiced_at == inv.created_at.to_date && inv.invoiced_at == inv.updated_at.to_date
+        row(:created_at)
+        row(:updated_at)
+      end
     end
   end
 end
