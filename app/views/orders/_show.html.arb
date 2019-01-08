@@ -42,6 +42,7 @@ resource.reserves.each_with_index do |res, i|
       row(:kid_price) { |res| number_to_currency res.kid_price }
       row(:total_night_price) { |res| number_to_currency res.total_night_price }
       row(:total_final_price) { |res| number_to_currency res.total_final_price }
+      row('Eliminar') { |res| button_to 'Eliminar Reserva', reserve_path(res), method: :delete, data: { confirm: 'Está seguro que desea eliminar esta reserva de la orden?' } }
     end
   end
 end
