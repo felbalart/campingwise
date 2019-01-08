@@ -1,0 +1,20 @@
+<div class="dashboard-table">
+  <table class="index_table">
+    <tr>
+      <th>Categoría</th>
+      <% service.human_headers.each do |hh| %>
+          <th><%= hh %></th>
+      <% end %>
+    </tr>
+    <% service.stats.each do |category, stats| %>
+        <tr>
+          <th>
+            <%= link_to Site.category.send(category).text, calendar_path(sites: (category.to_s == 'campsite' ? :campsites : :cdm)) %>
+          </th>
+          <% stats.values.each do |value| %>
+              <td><%= value %></td>
+          <% end %>
+        </tr>
+    <% end %>
+  </table>
+</div>

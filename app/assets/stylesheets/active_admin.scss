@@ -189,3 +189,21 @@ $statusTagFuture: #9494b8;
     }
   }
 }
+
+.dashboard.index {
+  .dashboard-table {
+    font-size: 15px;
+    max-width: 700px;
+    table {
+      width: 100%;
+    }
+
+    a {
+      text-decoration: underline !important;
+    }
+  }
+
+  b {
+    background-color: #ffff4d;
+  }
+}

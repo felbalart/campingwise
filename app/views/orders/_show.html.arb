@@ -1,27 +1,34 @@
-panel 'Huésped'  do
-  attributes_table_for resource.guest do
-    row :id
-    row :name
-    row :email
-    row :phone
-  end
-end
-
-attributes_table_for resource do
-  row(:state) do |order|
-    span do
-      status_tag(order.state_text, class: order.state)
-      status_tag(order.date_state_text, class: order.date_state) if order.date_state
+columns do
+  column do
+    panel 'Huésped'  do
+      attributes_table_for resource.guest do
+        row :id
+        row :name
+        row :email
+        row :phone
+      end
     end
   end
-  row('Monto')  { |ord| "Total: #{number_to_currency(ord.total_amount)} - Pagado: #{number_to_currency(ord.paid_amount)}" }
-  # row(Order.human_attribute_name(:total_amount))  { |ord| number_to_currency(ord.total_amount) }
-  # row(Order.human_attribute_name(:paid_amount))  { |ord| number_to_currency ord.paid_amount }
-  # row(Order.human_attribute_name(:balance_due))  { |ord| number_to_currency ord.balance_due }
-  row :tag
-  # row('Nº reservas') { |order| order.reserves.count }
-  # row('Nº pagos') { |order| order.payments.count }
-  # row('Nº boletas') { |order| order.invoices.count }
+  column do
+    panel 'Orden' do
+      attributes_table_for resource do
+        row(:state) do |order|
+          span do
+            status_tag(order.state_text, class: order.state)
+            status_tag(order.date_state_text, class: order.date_state) if order.date_state
+          end
+        end
+        row('Monto')  { |ord| "Total: #{number_to_currency(ord.total_amount)} - Pagado: #{number_to_currency(ord.paid_amount)}" }
+        # row(Order.human_attribute_name(:total_amount))  { |ord| number_to_currency(ord.total_amount) }
+        # row(Order.human_attribute_name(:paid_amount))  { |ord| number_to_currency ord.paid_amount }
+        # row(Order.human_attribute_name(:balance_due))  { |ord| number_to_currency ord.balance_due }
+        row :tag
+        # row('Nº reservas') { |order| order.reserves.count }
+        # row('Nº pagos') { |order| order.payments.count }
+        # row('Nº boletas') { |order| order.invoices.count }
+      end
+    end
+  end
 end
 
 h3 "Reservas (#{resource.reserves.count})" if resource.reserves.any?
