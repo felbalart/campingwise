@@ -24,14 +24,14 @@ $disabledInputFontGray: #a6a6a6;
 
 $calendarDarkCellFontColor: #5e6469;
 $calendarLightCellFontColor: #ffffff;
-$orderUnpaid: #ffa366;
-$orderSemiPaid: #ffff80;
-$orderPaid: #99e699;
-$orderPaidBilled: #cce6ff;
-$orderUnpaidPast: #e65c00;
-$orderSemiPaidPast: #e6e600;
-$orderPaidPast: #2eb82e;
-$orderPaidBilledPast: #3399ff;
+$orderUnpaid: #e65c00;
+$orderSemiPaid: #e6e600;
+$orderPaid: #2eb82e;
+$orderPaidBilled: #3399ff;
+$orderUnpaidPast: #ffa366;
+$orderSemiPaidPast: #ffff80;
+$orderPaidPast: #99e699;
+$orderPaidBilledPast: #cce6ff;
 
 $statusTagAnnulled: #595959;
 $statusTagPast: #3d3d5c;
@@ -48,16 +48,16 @@ $statusTagFuture: #9494b8;
     background-color: $statusTagAnnulled;
   }
   &.unpaid {
-    background-color: $orderUnpaidPast;
+    background-color: $orderUnpaid;
   }
   &.semi_paid {
-    background-color: $orderSemiPaidPast;
+    background-color: $orderSemiPaid;
   }
   &.paid {
-    background-color: $orderPaidPast;
+    background-color: $orderPaid;
   }
   &.paid_billed {
-    background-color: $orderPaidBilledPast;
+    background-color: $orderPaidBilled;
   }
   &.past {
     background-color: $statusTagPast;
@@ -121,6 +121,10 @@ $statusTagFuture: #9494b8;
       border-right: 1px solid #e8e8e8;
       padding: 1px !important;
       text-align: center !important;
+
+      &.wknd {
+        color: #ff4d4d;
+      }
     }
 
     .matrix-cell {
@@ -144,14 +148,18 @@ $statusTagFuture: #9494b8;
 
       &.available-cell {
         background-color: #ffffff;
+
+        &.wknd {
+          background-color: #ffe6e6;
+        }
       }
 
       &.single-reserve-cell {
         a {
-          color: $calendarDarkCellFontColor !important;
+          color: $calendarLightCellFontColor !important;
         }
         &.past a {
-          color: $calendarLightCellFontColor !important;
+          color: $calendarDarkCellFontColor !important;
         }
 
         &.order-unpaid {

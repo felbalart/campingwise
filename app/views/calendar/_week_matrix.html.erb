@@ -3,7 +3,7 @@
     <tr>
       <th>Inst.</th>
       <% days.each do |day| %>
-        <th><%= "#{CalendarService::SPANISH_DAY_INITIALS[day.wday - 1]} #{day.day}/#{day.month}" %></th>
+        <th class ="<%='wknd' if day.wday.in?([0, 6])%>"><%= "#{CalendarService::SPANISH_DAY_INITIALS[day.wday - 1]} #{day.day}/#{day.month}" %></th>
       <% end %>
     </tr>
     <% sites.each do |site| %>
