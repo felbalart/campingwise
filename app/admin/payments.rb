@@ -14,4 +14,14 @@ ActiveAdmin.register Payment do
       payment
     end
   end
+
+  csv do
+    column :id
+    column :order_id
+    column :amount
+    column :payed_at
+    column :payment_method
+    column :created_at
+    column :updated_at
+  end
 end

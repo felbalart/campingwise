@@ -14,4 +14,15 @@ ActiveAdmin.register Invoice do
       invoice
     end
   end
+
+  csv do
+    column :id
+    column :order_id
+    column :category
+    column :number
+    column :invoiced_at
+    column :amount
+    column :created_at
+    column :updated_at
+  end
 end
