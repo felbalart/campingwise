@@ -1,5 +1,5 @@
 ActiveAdmin.register Invoice do
-  menu priority: 13
+  menu priority: 113
   permit_params :order_id, :category, :number, :amount, :invoiced_at
 
   controller do

@@ -1,6 +1,7 @@
 class Site < ApplicationRecord
   extend Enumerize
   enumerize :category, in: [:campsite, :family_cabin, :suite_cabin, :family_dome, :small_dome, :motorhome]
+  validates :priority, numericality: { greater_than_or_equal_to: 0 }
 
   def full_name
     "#{category_text} - #{name}"

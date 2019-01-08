@@ -1,5 +1,5 @@
 ActiveAdmin.register Payment do
-  menu priority: 11
+  menu priority: 111
   permit_params :order_id, :amount, :payed_at, :payment_method
 
   controller do

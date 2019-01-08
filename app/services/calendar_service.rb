@@ -1,5 +1,6 @@
-class CalendarService < PowerTypes::Service.new(:start_date)
+class CalendarService < PowerTypes::Service.new(:start_date, sites_type: :cdm) # other sites type option is campsites
   attr_accessor :start_date
+  attr_accessor :sites_type
 
   SPANISH_MONTH_ABR = ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic']
   SPANISH_DAY_INITIALS = ['L', 'M', 'W', 'J', 'V', 'S', 'D']
@@ -42,11 +43,29 @@ class CalendarService < PowerTypes::Service.new(:start_date)
     end
   end
 
-  SITE_GROUP_SIZE = 5
+
   def grouped_sites
     @grouped_sites ||= begin
-      Site.order(:priority).each_slice(SITE_GROUP_SIZE).to_a
+      case @sites_type
+      when :campsites
+        grouped_campsites
+      when :cdm
+        grouped_cdms
+      else
+        raise "Unhandled sites type #{@sites_type}"
+      end
     end
+  end
+
+  SITE_GROUP_SIZE = 5
+  def grouped_campsites
+    Site.where(category: :campsite).order(:priority).each_slice(SITE_GROUP_SIZE).to_a
+  end
+
+  def grouped_cdms
+    groups = Site.where.not(category: :campsite).group_by(&:category).values
+    groups.each { |gr| gr.sort_by!(&:priority) }
+    groups
   end
 
   def reserves_for_cell(site_id, day)
@@ -58,5 +77,16 @@ class CalendarService < PowerTypes::Service.new(:start_date)
 
   def end_date
     @start_date + 2.months - 1.day
+  end
+
+  def other_sites_type
+    case @sites_type
+     when :campsites
+       :cdm
+     when :cdm
+       :campsites
+     else
+       raise "Unhandled sites type #{@sites_type}"
+    end
   end
 end
