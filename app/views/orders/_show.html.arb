@@ -58,7 +58,7 @@ h3 "Pagos (#{resource.payments.count})" if resource.payments.any?
 resource.payments.each_with_index do |paym, i|
   panel "Pago #{i + 1}" do
     attributes_table_for paym do
-      row :id
+      row(:id) { |paym| link_to paym.id, payment_path(paym) }
       row(:amount) { |pa| number_to_currency pa.amount }
       row :payed_at
       row(:payment_method) { |pa| pa.payment_method_text }
@@ -74,7 +74,7 @@ h3 "Boletas (#{resource.invoices.count})" if resource.invoices.any?
 resource.invoices.each_with_index do |inv, i|
   panel "Boleta #{i + 1}" do
     attributes_table_for inv do
-      row :id
+      row(:id) { |inv| link_to inv.id, invoice_path(inv) }
       row(:category) { |inv| inv.category_text }
       row(:number)
       row(:amount) { |inv| number_to_currency inv.amount }

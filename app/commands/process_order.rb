@@ -6,6 +6,7 @@ class ProcessOrder < PowerTypes::Command.new(:op, order: Order.new(state: :unpai
     order = @order
     order.tag = @op[:tag]
     order.guest = guest
+    order.state = order.compute_state
     order.validate
     reserves_hash = reserves_from_params
     reserves_hash.values.each do |res|
@@ -20,6 +21,7 @@ class ProcessOrder < PowerTypes::Command.new(:op, order: Order.new(state: :unpai
       errors_str = errors_hash.map { |k, v| "#{k}: #{v}"}.join(';').delete('[]"')
     else # everything ok
       order.reserves = reserves_hash.values
+      order.state = order.compute_state
       guest.save!
       order.save!
       reserves_hash.values.each { |ores| ores.order_id = order.id  }

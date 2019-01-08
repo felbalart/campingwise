@@ -9,6 +9,7 @@ ActiveAdmin.register Invoice do
         order = Order.find params[:order_id]
         invoice.order = order
         invoice.amount = order.total_amount
+        invoice.invoiced_at = Date.today
       end
       invoice
     end
