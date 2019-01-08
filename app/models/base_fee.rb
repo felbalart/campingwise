@@ -1,6 +1,8 @@
 class BaseFee < ApplicationRecord
   extend Enumerize
   enumerize :site_category, in: Site.category.values
+  validate :category_values_logic
+  validates_presence_of :site_category, :fee_name
 
   def self.options_for_site_category(category)
     options =
@@ -8,6 +10,19 @@ class BaseFee < ApplicationRecord
         [bf.full_name, bf.id]
       end.to_h
     { 'Custom' => :custom }.merge(options)
+  end
+
+  def category_values_logic
+    return unless site_category.present?
+    if site_category.campsite?
+      errors.add(:total_night_price, 'no debe definirse para tarifas de sitios de camping') if total_night_price.present?
+      errors.add(:adult_price, 'debe definirse para tarifas de sitios de camping') if adult_price.blank?
+      errors.add(:kid_price, 'debe definirse para tarifas de sitios de camping') if kid_price.blank?
+    else
+      errors.add(:total_night_price, 'debe definirse (excepto tarifas de sitios de camping)') if total_night_price.blank?
+      errors.add(:adult_price, 'no debe definirse (excepto tarifas de sitios de camping)') if adult_price.present?
+      errors.add(:kid_price, 'no debe definirse (excepto tarifas de sitios de camping)') if kid_price.present?
+    end
   end
 
   def full_name
