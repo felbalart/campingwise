@@ -19,5 +19,10 @@ module Campingwise
     config.i18n.default_locale = 'es-CL'
     config.assets.paths << Rails.root.join('node_modules')
     config.load_defaults 5.2
+
+    Raven.configure do |config|
+      config.sanitize_fields = Rails.application.config.filter_parameters.map(&:to_s)
+      config.dsn = ENV['SENTRY_DSN']
+    end
   end
 end
