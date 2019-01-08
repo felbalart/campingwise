@@ -145,7 +145,7 @@ function getTotalNights(formIndex) {
   else {
     var startDate = clStrToDate(startDateStr);
     var endDate = clStrToDate(endDateStr);
-    nights = Date.daysBetween(startDate, endDate) + 1;
+    nights = Date.daysBetween(startDate, endDate);
   }
   if(nights < 0) { nights = 0; }
   return nights;

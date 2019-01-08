@@ -26,8 +26,9 @@ class CalendarService < PowerTypes::Service.new(:start_date, sites_type: :cdm) #
 
   def grouped_reserves
     @grouped_reserves ||= begin
-      res = Reserve.active.where('start_date >= ?', @start_date)
-              .where('end_date < ?', @start_date + 2.months)
+      end_date = @start_date + 2.months
+      res = Reserve.active.where('start_date <= ?', end_date)
+              .where('end_date >= ?', @start_date)
               .includes(order: :guest)
       res.group_by(&:site_id)
     end

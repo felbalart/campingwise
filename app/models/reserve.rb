@@ -8,8 +8,7 @@ class Reserve < ApplicationRecord
   # TODO validate avoid >=2 reserves same site same dates
 
 
-  validate :price_logic
-  validate :ends_after_start
+  validate :price_logic, :ends_after_start, :site_available
   validates :total_night_price, presence: true
 
   def price_logic
@@ -24,14 +23,27 @@ class Reserve < ApplicationRecord
 
   def ends_after_start
     return unless start_date && end_date
-    if end_date < start_date
-      errors.add(:end_date, "'Fecha Hasta' no puede ser anterior a 'Fecha Desde'")
+    if end_date <= start_date
+      errors.add(:end_date, "'Fecha Hasta' debe ser posterior a 'Fecha Desde'")
+    end
+  end
+
+  def site_available
+    return unless site.present? && start_date.present? && end_date.present?
+    overlapping_reserves = Reserve.active
+                             .where.not(id: id)
+                             .where(site_id: site.id)
+                             .where('start_date <= ?', end_date)
+                             .where('end_date > ?', start_date)
+                             .exists?
+    if overlapping_reserves
+      errors.add(:site, 'ocupado, existe traslape de fechas con otra reserva')
     end
   end
 
   def nights_long
     return unless start_date && end_date
-    (end_date - start_date).to_i + 1
+    (end_date - start_date).to_i
   end
 
   def total_final_price
