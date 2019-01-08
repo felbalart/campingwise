@@ -32,7 +32,7 @@ resource.reserves.each_with_index do |res, i|
       row :site
       row :start_date
       row :end_date
-      row :status
+      row :nights_long
       row :created_at
       row :updated_at
       row :adults_qty

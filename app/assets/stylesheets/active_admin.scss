@@ -75,11 +75,11 @@ $statusTagFuture: #9494b8;
     background-color: #e6e6e6;
   }
 
-  .datepicker {
+  .datepicker, .reserve-date-input {
     width: 130px;
   }
 
-  .site-select2 + span.select2 {
+  .site-select2 + span.select2, .base_fee-select2 + span.select2  {
     width: 300px !important;
   }
 

@@ -93,9 +93,11 @@ es-CL:
       base_fee:
         <<: *shared
         fee_name: Nombre
-        amount: Monto
         site_category: Categoría Sitio
         default_fee: Default
+        adult_price: Precio Noche Adulto
+        kid_price: Precio Noche Niño
+        total_night_price: Precio Noche Total
       admin_user:
         <<: *shared
         email: Email
@@ -105,14 +107,20 @@ es-CL:
       role:
         sysadmin: SysAdmin
         admin: Admin
-    site:
-      category:
+    enumerize_shared:
+      site_category_shared: &site_category_shared
         campsite: Sitio Camping
         family_cabin: Cabaña Familiar
         suite_cabin: Cabaña Suite
         family_dome: Domo Familiar
         small_dome: Domo Pequeño
         motorhome: Motorhome
+    site:
+      category:
+        <<: *site_category_shared
+    base_fee:
+      site_category:
+        <<: *site_category_shared
     order:
       state:
         annulled: Anulada

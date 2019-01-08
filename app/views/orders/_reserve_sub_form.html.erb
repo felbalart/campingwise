@@ -2,15 +2,18 @@
     <%= f.semantic_fields_for :'reserve0' do |rf| %>
         <%= rf.input :id, as: :number, wrapper_html: { style: 'display: none;' }  %>
         <%= rf.input :site_id, label: Reserve.human_attribute_name(:site), as: :select, collection: Site.all, member_label: :full_name, input_html: { class: 'site-select2' } %>
-        <%= rf.input :start_date, label: Reserve.human_attribute_name(:start_date), as: :string, input_html: { class: 'datepicker', value: Date.today.strftime('%d/%m/%Y') } %>
-        <%= rf.input :end_date, label: Reserve.human_attribute_name(:end_date), as: :string, input_html: { class: 'datepicker', value: Date.tomorrow.strftime('%d/%m/%Y') } %>
+        <%= rf.input :start_date, label: Reserve.human_attribute_name(:start_date), as: :string, input_html: { class: 'reserve-date-input', value: Date.today.strftime('%d/%m/%Y') } %>
+        <%= rf.input :end_date, label: Reserve.human_attribute_name(:end_date), as: :string, input_html: { class: 'reserve-date-input', value: Date.today.strftime('%d/%m/%Y') } %>
         <%= rf.input :adults_qty, label: Reserve.human_attribute_name(:adults_qty), as: :number, input_html: { class: 'reserve-price-related-input' } %>
         <%= rf.input :kids_qty, label: Reserve.human_attribute_name(:kids_qty), as: :number, input_html: { class: 'reserve-price-related-input' } %>
         <%= rf.input :nights_long, label: Reserve.human_attribute_name(:nights_long), as: :number, input_html: { class: 'reserve-price-related-input disabled-input', disabled: true } %>
         <%= rf.input :fix_total_night_price, label: Reserve.human_attribute_name(:fix_total_night_price), as: :boolean, input_html: { class: 'reserve-price-related-input' } %>
-        <%= rf.input :adult_price, label: Reserve.human_attribute_name(:adult_price), as: :number, input_html: { class: 'reserve-price-related-input' } %>
-        <%= rf.input :kid_price, label: Reserve.human_attribute_name(:kid_price), as: :number, input_html: { class: 'reserve-price-related-input' } %>
-        <%= rf.input :total_night_price, label: Reserve.human_attribute_name(:total_night_price), as: :number, input_html: { class: 'reserve-price-related-input' } %>
+        <% Site.category.values.each do |site_cat|%>
+          <%= rf.input "#{site_cat}_fee".to_sym, label: BaseFee.model_name.human, as: :select, collection: BaseFee.options_for_site_category(site_cat), input_html: { class: 'base_fee-select2 reserve0-fee' } %>
+        <% end %>
+        <%= rf.input :adult_price, label: Reserve.human_attribute_name(:adult_price), as: :number, input_html: { class: 'reserve-price-related-input reserve-price-direct-input' } %>
+        <%= rf.input :kid_price, label: Reserve.human_attribute_name(:kid_price), as: :number, input_html: { class: 'reserve-price-related-input reserve-price-direct-input' } %>
+        <%= rf.input :total_night_price, label: Reserve.human_attribute_name(:total_night_price), as: :number, input_html: { class: 'reserve-price-related-input reserve-price-direct-input' } %>
         <%= rf.input :total_final_price, label: Reserve.human_attribute_name(:total_final_price), as: :number, input_html: { class: 'reserve-price-related-input disabled-input', disabled: true } %>
     <% end %>
 <% end %>

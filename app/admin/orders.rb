@@ -45,7 +45,7 @@ ActiveAdmin.register Order do
         reserve = Reserve.new
         reserve.site_id = params[:site_id] if params[:site_id].present?
         reserve.start_date = params[:start_date].present? ? params[:start_date].to_date : Date.today
-        reserve.end_date = reserve.start_date + 1.day
+        reserve.end_date = reserve.start_date
         reserve.site_id = params[:site_id].to_i if params[:site_id].present?
         order.reserves << reserve
         return order

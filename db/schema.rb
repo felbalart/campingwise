@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_01_07_223745) do
+ActiveRecord::Schema.define(version: 2019_01_08_010632) do
 
   create_table "admin_users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -26,11 +26,13 @@ ActiveRecord::Schema.define(version: 2019_01_07_223745) do
 
   create_table "base_fees", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "fee_name"
-    t.decimal "amount", precision: 10
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "site_category"
     t.boolean "default_fee"
+    t.integer "total_night_price"
+    t.integer "adult_price"
+    t.integer "kid_price"
   end
 
   create_table "guests", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|

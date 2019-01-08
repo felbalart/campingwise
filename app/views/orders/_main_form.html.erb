@@ -1,4 +1,4 @@
-<%= content_tag(:div, nil, id: 'reserves-data-container', data: { reserves: resource&.reserves })%>
+<%= content_tag(:div, nil, id: 'reserves-data-container', data: { reserves: resource&.reserves, fees: BaseFee.all.map { |bf| [bf.id, bf] }.to_h, site_categories: Site.pluck(:id, :category).to_h })%>
 <div class="main-form">
   <%= semantic_form_for resource do |f| %>
       <%= f.inputs name: 'Huésped' do %>

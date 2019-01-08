@@ -31,7 +31,7 @@ class Reserve < ApplicationRecord
 
   def nights_long
     return unless start_date && end_date
-    (end_date - start_date).to_i
+    (end_date - start_date).to_i + 1
   end
 
   def total_final_price
