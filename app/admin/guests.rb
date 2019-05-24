@@ -1,6 +1,7 @@
 ActiveAdmin.register Guest do
   menu priority: 107
   permit_params :email, :name, :phone
+  actions :all, except: [:destroy]
 
   controller do
     def index
