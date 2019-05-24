@@ -35,7 +35,7 @@ ActiveAdmin.register Order do
 
     def build_new_resource
       if action_name == 'create'
-        result = ProcessOrder.for(op: params[:order].permit!.to_h)
+        result = ProcessOrder.for(op: params[:order].permit!.to_h, order: nil)
         order = result[:order]
         @error_message = result[:errors_msg]
         return order

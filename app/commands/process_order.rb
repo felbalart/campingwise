@@ -1,9 +1,9 @@
-class ProcessOrder < PowerTypes::Command.new(:op, order: Order.new(state: :unpaid))
+class ProcessOrder < PowerTypes::Command.new(:op, :order)
   def perform
     guest = guest_from_params
     guest.validate
     # order = order_from_params
-    order = @order
+    order = @order || Order.new(state: :unpaid)
     order.tag = @op[:tag]
     order.guest = guest
     order.state = order.compute_state
