@@ -25,7 +25,8 @@ ActiveAdmin.register_page 'calendar' do
     end
 
     def human_sites_type
-      case params[:sites].to_sym
+      s_type = params[:sites] || 'campsites'
+      case s_type.to_sym
       when :campsites
         'Sitios de Camping'
       when :cdm
