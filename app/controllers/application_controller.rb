@@ -3,7 +3,7 @@ class ApplicationController < ActionController::Base
 
   def test_email
     ApplicationMailer.with(user: @user).test_email.deliver_now
-    render :nothing => true, :status => 200, :content_type => 'text/html'
+    render  body: nil
   end
 
   private
