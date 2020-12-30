@@ -1,6 +1,6 @@
 ActiveAdmin.register Order do
   menu priority: 105
-  permit_params :guest_id, :tag
+  permit_params :guest_id, :tag, :notify_email
 
   actions :all, except: [:destroy]
 

@@ -23,6 +23,7 @@ columns do
         # row(Order.human_attribute_name(:paid_amount))  { |ord| number_to_currency ord.paid_amount }
         # row(Order.human_attribute_name(:balance_due))  { |ord| number_to_currency ord.balance_due }
         row :tag
+        row('Enviar Email', &:notify_email)
         # row('Nº reservas') { |order| order.reserves.count }
         # row('Nº pagos') { |order| order.payments.count }
         # row('Nº boletas') { |order| order.invoices.count }

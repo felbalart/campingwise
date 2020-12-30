@@ -5,6 +5,7 @@ class ProcessOrder < PowerTypes::Command.new(:op, :order)
     # order = order_from_params
     order = @order || Order.new(state: :unpaid)
     order.tag = @op[:tag]
+    order.notify_email = @op[:notify_email]
     order.guest = guest
     order.state = order.compute_state
     order.validate
