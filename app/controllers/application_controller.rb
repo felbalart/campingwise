@@ -1,6 +1,11 @@
 class ApplicationController < ActionController::Base
   before_action :set_raven_context
 
+  def test_email
+    ApplicationMailer.with(user: @user).test_email.deliver_now
+    render :nothing => true, :status => 200, :content_type => 'text/html'
+  end
+
   private
 
   def set_raven_context
