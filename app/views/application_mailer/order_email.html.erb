@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+    <style>
+      table, th, td {
+        border: 1px solid black;
+        border-collapse: collapse;
+        text-align: left;
+      }
+
+      th, td {
+        width: 200px;
+      }
+
+      p {
+        line-height: 0.7;
+      }
+    </style>
+  </head>
+  <body>
+    <p>Buenas <%=Time.current.hour < 12 ? 'días' : 'tardes' %>,</p>
+
+<p>Envío datos para transferencia bancaria, de orden de reserva N° <%=@ord.id%> por <%=number_to_currency(@ord.total_amount)%></p>
+
+<h4>Detalle:</h4>
+<%@ord.reserves.each do |res|%>
+  <table style="width:400px;">
+    <tr>
+      <th>Instalación</th>
+      <td><%=res.site.name%></td>
+    </tr>
+    <tr>
+      <th>Fecha Desde</th>
+      <td><%=translate_date res.start_date%></td>
+    </tr>
+    <tr>
+      <th>Fecha Hasta</th>
+      <td><%=translate_date res.end_date%></td>
+    </tr>
+    <tr>
+      <th>Cantidad Noches</th>
+      <td><%=res.nights_long%></td>
+    </tr>
+    <tr>
+      <th>Precio Por Noche</th>
+      <td><%= number_to_currency res.total_night_price%></td>
+    </tr>
+    <tr>
+      <th>Total</th>
+      <td><%= number_to_currency res.total_final_price%></td>
+    </tr>
+  </table>
+<%end%>
+
+<h4>Pago de reserva:</h4> 
+<p>
+Abono 50% a los 5 dias de realizada la reserva y saldo 5 dias antes de la fecha de ingreso (el no cumplimiento de esto dejará sin efecto la respectiva reserva).
+</p>
+<p>
+Nota: Es importante indicar que si su transferencia no indica N° de reserva, no podemos asegurar su vigencia y activación.
+</p>
+
+
+<h4>Datos para Transferencia:</h4>
+<p><b>Nombre:&nbsp;</b><%=ENV['CAMPING_NAME'] || 'CAMPING_NAME'%> </p>
+<p><b>Rut:&nbsp;</b> <%=ENV['CAMPING_RUT'] || 'CAMPING_RUT'%></p>
+<p><b>Tipo de Cuenta&nbsp;:</b><%=ENV['CAMPING_ACCOUNT_TYPE'] || 'CAMPING_ACCOUNT_TYPE'%></p>
+<p><b>Número de Cuenta&nbsp;:</b><%=ENV['CAMPING_ACCOUNT_NUMBER'] || 'CAMPING_ACCOUNT_NUMBER'%></p>
+<p><b>Banco&nbsp;:</b><%=ENV['CAMPING_ACCOUNT_BANK'] || 'CAMPING_ACCOUNT_BANK'%></p>
+
+
+<p>Favor enviar por esta vía comprobante de transferencia para validar su reserva (indicando el número de reserva). </p>
+<br/>
+<h4>Protocolos Covid-19:</h4>
+<p>Debe verificar protocolos que exige la autoridad</p>
+<p>Debes llevar y para todo el grupo familiar lo siguiente:</p>
+<p> 1.- Pasaporte sanitario C19</p>
+<p> 2.- Comprobante de transferencia( no se aceptan pagos en el Camping)</p>
+<p> Nota: el Origen debe estar dentro del Plan Etapa 3 o superior.</p>
+<p> No se dejará ingresar al recinto si no lleva estos documentos.</p>
+<p> </p>
+<p> Al llegar al CAMPING se deben estacionar y NO bajarse del auto, hasta que vaya personal a verificar TEMPERATURA y DOCUMENTOS SOLICITADOS.</p>
+<p> </p>
+<p> Las personas que ingresen al recinto deben dar cumplimiento estricto al PROTOCOLO SANITARIO establecido que  indica la administración.</p>
+<p> </p>
+<p> SEREMI DE SALUD</p>
+<p> Sanidad FISCALIZARA a las personas que nos visiten y podrán pedir abandono del lugar si no cumplen con la norma sanitaria.
+<br/>
+<br/>
+<p>Gracias.</p>
+<p>Atentamente,</p>
+<br/>
+<p><%=ENV['CAMPING_NAME'] || 'CAMPING_NAME' %></p>
+<p><%=ENV['CAMPING_PHONE_NUMBER'] || 'CAMPING_PHONE_NUMBER' %></p>
+  </body>
+</html>
