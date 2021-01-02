@@ -38,6 +38,7 @@ ActiveAdmin.register Order do
         result = ProcessOrder.for(op: params[:order].permit!.to_h, order: nil)
         order = result[:order]
         @error_message = result[:errors_msg]
+        send_email(order) if order.notify_email && @error_message.blank? && order.persisted?
         return order
       end
       if action_name == 'new'
@@ -51,6 +52,14 @@ ActiveAdmin.register Order do
         return order
       end
       super
+    end
+
+    def send_email(order)
+      ApplicationMailer.with(order: order).order_email.deliver_now
+    rescue StandardError => e
+      puts "Unable to send email for order #{order&.id}"
+      logger.error e.message
+      e.backtrace.each { |line| logger.error line }
     end
   end
 

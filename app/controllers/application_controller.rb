@@ -2,7 +2,8 @@ class ApplicationController < ActionController::Base
   before_action :set_raven_context
 
   def test_email
-    ApplicationMailer.with(user: @user).test_email.deliver_now
+    order = Order.find 31
+    ApplicationMailer.with(order: order).order_email.deliver_now
     render  body: nil
   end
 

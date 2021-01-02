@@ -21,7 +21,7 @@
   <body>
     <p>Buenas <%=Time.current.hour < 12 ? 'días' : 'tardes' %>,</p>
 
-<p>Envío datos para transferencia bancaria, de orden de reserva N° <%=@ord.id%> por <%=number_to_currency(@ord.total_amount)%></p>
+<p>Envío datos para transferencia bancaria, de orden de reserva N° <%=@ord.id%>, con monto total <b><%=number_to_currency(@ord.total_amount)%></b></p>
 
 <h4>Detalle:</h4>
 <%@ord.reserves.each do |res|%>
@@ -52,7 +52,7 @@
     </tr>
   </table>
 <%end%>
-
+<br/>
 <h4>Pago de reserva:</h4> 
 <p>
 Abono 50% a los 5 dias de realizada la reserva y saldo 5 dias antes de la fecha de ingreso (el no cumplimiento de esto dejará sin efecto la respectiva reserva).
@@ -65,9 +65,9 @@ Nota: Es importante indicar que si su transferencia no indica N° de reserva, no
 <h4>Datos para Transferencia:</h4>
 <p><b>Nombre:&nbsp;</b><%=ENV['CAMPING_NAME'] || 'CAMPING_NAME'%> </p>
 <p><b>Rut:&nbsp;</b> <%=ENV['CAMPING_RUT'] || 'CAMPING_RUT'%></p>
-<p><b>Tipo de Cuenta&nbsp;:</b><%=ENV['CAMPING_ACCOUNT_TYPE'] || 'CAMPING_ACCOUNT_TYPE'%></p>
-<p><b>Número de Cuenta&nbsp;:</b><%=ENV['CAMPING_ACCOUNT_NUMBER'] || 'CAMPING_ACCOUNT_NUMBER'%></p>
-<p><b>Banco&nbsp;:</b><%=ENV['CAMPING_ACCOUNT_BANK'] || 'CAMPING_ACCOUNT_BANK'%></p>
+<p><b>Tipo de Cuenta:&nbsp;</b><%=ENV['CAMPING_ACCOUNT_TYPE'] || 'CAMPING_ACCOUNT_TYPE'%></p>
+<p><b>Número de Cuenta:&nbsp;</b><%=ENV['CAMPING_ACCOUNT_NUMBER'] || 'CAMPING_ACCOUNT_NUMBER'%></p>
+<p><b>Banco:&nbsp;</b><%=ENV['CAMPING_ACCOUNT_BANK'] || 'CAMPING_ACCOUNT_BANK'%></p>
 
 
 <p>Favor enviar por esta vía comprobante de transferencia para validar su reserva (indicando el número de reserva). </p>
