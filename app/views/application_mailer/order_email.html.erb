@@ -3,22 +3,22 @@
   <head>
     <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
     <style>
+      body#order-email {
+        font-size: 14px;
+      }
       table, th, td {
         border: 1px solid black;
         border-collapse: collapse;
         text-align: left;
+        font-size: 14px;
       }
 
       th, td {
         width: 200px;
       }
-
-      p {
-        line-height: 0.7;
-      }
     </style>
   </head>
-  <body>
+  <body id='order-email'>
     <p>Buenas <%=Time.current.hour < 12 ? 'días' : 'tardes' %>,</p>
 
 <p>Envío datos para transferencia bancaria, de orden de reserva N° <%=@ord.id%>, con monto total <b><%=number_to_currency(@ord.total_amount)%></b></p>
@@ -61,7 +61,7 @@ Abono 50% a los 5 dias de realizada la reserva y saldo 5 dias antes de la fecha 
 Nota: Es importante indicar que si su transferencia no indica N° de reserva, no podemos asegurar su vigencia y activación.
 </p>
 
-
+<br/>
 <h4>Datos para Transferencia:</h4>
 <p><b>Nombre:&nbsp;</b><%=ENV['CAMPING_NAME'] || 'CAMPING_NAME'%> </p>
 <p><b>Rut:&nbsp;</b> <%=ENV['CAMPING_RUT'] || 'CAMPING_RUT'%></p>
