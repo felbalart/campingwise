@@ -2,6 +2,18 @@ ActiveAdmin.register Invoice do
   menu priority: 113
   permit_params :order_id, :category, :number, :amount, :invoiced_at
 
+  form do |f|
+    h4 resource&.order&.display_name
+    f.inputs do
+      f.input :order_id, as: :number
+      f.input :category
+      f.input :number
+      f.input :amount
+      f.input :invoiced_at
+    end
+    f.actions
+  end
+
   controller do
     def build_new_resource
       invoice = super
