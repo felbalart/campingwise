@@ -1,5 +1,5 @@
 Rails.application.configure do
-  Rack::Timeout.timeout = (ENV["RACK_TIMEOUT"] || 30).to_i
+  config.middleware.insert_before Rack::Runtime, Rack::Timeout, service_timeout: (ENV["RACK_TIMEOUT"] || 30).to_i
   config.force_ssl = true
   config.cache_classes = true
   config.eager_load = true
