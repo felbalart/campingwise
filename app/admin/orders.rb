@@ -54,6 +54,10 @@ ActiveAdmin.register Order do
       super
     end
 
+    def scoped_collection
+      Order.includes(:guest)
+    end
+
     def send_email(order)
       ApplicationMailer.with(order: order).order_email.deliver_now
     rescue StandardError => e

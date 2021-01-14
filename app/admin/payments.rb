@@ -13,6 +13,18 @@ ActiveAdmin.register Payment do
     f.actions
   end
 
+  index do
+    selectable_column
+    id_column
+    column :order
+    column("Huésped") { |pymnt| pymnt.order.guest }
+    column :amount
+    column :payed_at
+    column('Medio', :payment_method_text)
+    column :created_at
+    column :updated_at
+  end
+
   controller do
     def build_new_resource
       payment = super
@@ -23,6 +35,10 @@ ActiveAdmin.register Payment do
         payment.payed_at = Date.today
       end
       payment
+    end
+
+    def scoped_collection
+        Payment.includes(order: :guest)
     end
   end
 

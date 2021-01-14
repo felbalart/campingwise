@@ -3,6 +3,11 @@ ActiveAdmin.register Reserve do
   permit_params :order_id, :site_id, :start_date, :end_date, :status,
                 :adults_qty, :kids_qty, :fix_total_night_price, :adult_price, :kid_price, :total_night_price
 
+  controller do
+    def scoped_collection
+      Reserve.includes(:order, :site)
+    end
+  end
   csv do
     column(:guest_id) { |res| res.order&.guest&.id }
     column(:guest_name) { |res| res.order&.guest&.name }

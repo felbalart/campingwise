@@ -63,8 +63,9 @@ class Order < ApplicationRecord
     total_amount - paid_amount
   end
 
+  # Simplified due to query performance issues
   def display_name
-    "Orden ##{id} - #{guest.display_name}"
+    "Orden ##{id}"
   end
 end
 

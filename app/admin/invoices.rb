@@ -14,6 +14,18 @@ ActiveAdmin.register Invoice do
     f.actions
   end
 
+  index do
+    id_column
+    column :order
+    column("Huésped") { |pymnt| pymnt.order.guest }
+    column('Tipo', :category_text)
+    column :number
+    column :invoiced_at
+    column :amount
+    column :created_at
+    column :updated_at
+  end
+
   controller do
     def build_new_resource
       invoice = super
@@ -24,6 +36,10 @@ ActiveAdmin.register Invoice do
         invoice.invoiced_at = Date.today
       end
       invoice
+    end
+
+    def scoped_collection
+      Invoice.includes(order: :guest)
     end
   end
 
