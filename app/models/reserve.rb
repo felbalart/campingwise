@@ -33,7 +33,7 @@ class Reserve < ApplicationRecord
     overlapping_reserves = Reserve.active
                              .where.not(id: id)
                              .where(site_id: site.id)
-                             .where('start_date <= ?', end_date)
+                             .where('start_date < ?', end_date)
                              .where('end_date > ?', start_date)
                              .exists?
     if overlapping_reserves
